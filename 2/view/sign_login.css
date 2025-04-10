@@ -1,0 +1,563 @@
+
+/* Réinitialisation */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corps principal */
+body {
+    min-height: 100vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgb(21, 21, 21); /* Applique directement le fond sombre */
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .wrapper {
+    position: relative;
+    top: -30px;  /* Ajuste cette valeur pour le remonter */
+}
+
+/* Optionnel : si vous ne voulez pas d'image de fond ou autre effet, supprimez cette partie */
+body::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background: rgb(21, 21, 21); /* fond uni sombre */
+  z-index: -1;
+}
+
+/* Barre de  */
+.navbar {
+  top: 0;
+  left: 0;
+  z-index: 30;
+}
+
+
+
+/* Sidebar */
+.sidebar {
+
+  left: 0;
+ 
+}
+
+/* Wrapper : conteneur du formulaire */
+.wrapper {
+  width: 490px;
+  max-width: 90%;
+  margin: 100px auto;
+  border-radius: 12px;
+  padding: 40px;
+  background-color: #222;
+  border: 1px solid #333;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.wrapper:hover {
+  box-shadow: 0 15px 35px rgba(84, 11, 12, 0.3);
+}
+
+.wrapper h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #fff;
+  font-family: 'Sen', sans-serif;
+  text-align: center;
+  position: relative;
+}
+
+.wrapper h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #540b0c;
+}
+
+/* Formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.input-field {
+  position: relative;
+}
+
+.input-field input {
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  background: #333;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.input-field input:focus {
+  border-color: #540b0c;
+  box-shadow: 0 0 0 3px rgba(84, 11, 12, 0.2);
+  outline: none;
+}
+
+/* Bouton */
+button {
+  font-size: 18px;
+  width: 100%;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #540b0c, #7a0f11);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 15px;
+  margin-top: 10px;
+  font-family: 'Sen', sans-serif;
+  border: none;
+  font-weight: 600;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #7a0f11, #540b0c);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(84, 11, 12, 0.4);
+}
+
+/* Remember me & Forgot password */
+/* Remplacez le style existant du checkbox par ceci */
+/* REMOVE THE OLD CHECKBOX STYLES COMPLETELY */
+/* And replace with these new styles */
+
+/* Container for checkbox and label */
+
+.remember {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+/* Custom checkbox container */
+.remember label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 14px;
+  user-select: none;
+  position: relative;
+  padding-left: 30px;
+}
+
+/* Hide the default checkbox */
+.remember input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #333;
+  border: 2px solid #540b0c;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+/* On hover */
+.remember:hover input ~ .checkmark {
+  background-color: #2a2a2a;
+}
+
+/* When checked */
+.remember input:checked ~ .checkmark {
+  background-color: #540b0c;
+}
+
+/* Checkmark (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Show checkmark when checked */
+.remember input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Forgot password link */
+.remember a {
+  color: #540b0c;
+  text-decoration: none;
+  transition: color 0.3s;
+  margin-left: 15px;
+}
+
+.remember a:hover {
+  color: #7a0f11;
+  text-decoration: underline;
+}
+/* Register link */
+.register {
+  text-align: center;
+  margin-top: 25px;
+  color: #aaa;
+}
+
+.register p {
+  margin-bottom: 8px;
+}
+
+.register a {
+  color: #540b0c;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.register a:hover {
+  color: #7a0f11;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 30px;
+    margin: 80px auto;
+  }
+  
+  .wrapper h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 25px 20px;
+    margin: 70px auto;
+    border-radius: 10px;
+  }
+  
+  .wrapper h2 {
+    font-size: 1.8rem;
+  }
+  
+  .input-field input {
+    height: 45px;
+    padding: 0 15px;
+  }
+  
+  button {
+    padding: 12px;
+  }
+  
+  .remember {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .remember a {
+    margin-left: 0;
+  }
+}
+
+
+
+
+
+/* Styles pour les options d'authentification */
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.custom-checkbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: #333;
+  border: 2px solid #540b0c;
+  border-radius: 4px;
+  margin-right: 8px;
+  position: relative;
+  cursor: pointer;
+}
+
+.remember-me input:checked + label .custom-checkbox {
+  background-color: #540b0c;
+}
+
+.custom-checkbox:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.remember-me input:checked + label .custom-checkbox:after {
+  display: block;
+}
+
+.remember-me label {
+  color: #aaa;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.forgot-password {
+  color: #540b0c;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.forgot-password:hover {
+  color: #7a0f11;
+  text-decoration: underline;
+}
+
+/* Bouton */
+button {
+  font-size: 18px;
+  width: 100%;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #540b0c, #7a0f11);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 15px;
+  margin: 20px 0 15px 0;
+  font-family: 'Sen', sans-serif;
+  border: none;
+  font-weight: 600;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #7a0f11, #540b0c);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(84, 11, 12, 0.4);
+}
+
+
+
+/* ***********Profil Utilisateur**********************/
+.navbar-profile-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-profile {
+  position: relative;
+  margin-left: 10px;
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 5px 10px;
+  border-radius: 30px;
+  background: rgba(84, 11, 12, 0.3);
+}
+
+.profile-trigger:hover {
+  background: rgba(84, 11, 12, 0.5);
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+}
+
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e50914;
+}
+
+.status-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #2ecc71;
+  border-radius: 50%;
+  border: 2px solid #151515;
+}
+
+.profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  color: #ddd;
+  transition: transform 0.3s;
+}
+
+.profile-trigger.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Menu Déroulant */
+.profile-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 55px;
+  width: 240px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  border: 1px solid #333;
+}
+
+.profile-dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 12px;
+}
+
+.dropdown-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e50914;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+}
+
+.user-email {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #333;
+  margin: 8px 0;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  color: #ddd;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.dropdown-item i {
+  width: 20px;
+  text-align: center;
+  color: #e50914;
+}
+
+.dropdown-item:hover {
+  background: rgba(84, 11, 12, 0.3);
+  color: #fff;
+  padding-left: 18px;
+}
+
+.dropdown-item.logout {
+  color: #e74c3c;
+}
+
+.dropdown-item.logout i {
+  color: #e74c3c;
+}
