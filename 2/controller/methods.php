@@ -9,4 +9,6 @@
     "',curdate()".");";
     $res = $cnx->query($req);
   }
+
+
 ?>
