@@ -1,21 +1,29 @@
-<?php
-include("../Config/database.php");
-
-function AddFilm($cnx, $data) {
-    $title = addslashes($data['title']);
-    $actors = addslashes($data['actors']);
-    $genres = addslashes($data['genres']);
-    $description = addslashes($data['description']);
-    $url = addslashes($data['url']);
-    $date = addslashes(string: $data['date']);
-
-    $req = "INSERT INTO Film (Title, Actors, Genres, Description, url, Date)
-            VALUES ('$title', '$actors', '$genres', '$description', '$url', '$date');";
-    $cnx->query($req);
-}
-
 $films = [
     // Blockbusters & Classiques
+    [
+        "title" => "Inception",
+        "actors" => "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page",
+        "genres" => "Science-fiction, Thriller",
+        "description" => "Un voleur qui s'infiltre dans les rêves se voit confier la mission inverse : implanter une idée dans l'esprit d'une cible.",
+        "url" => "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg",
+        "date" => "2010"
+    ],
+    [
+        "title" => "The Dark Knight",
+        "actors" => "Christian Bale, Heath Ledger, Aaron Eckhart",
+        "genres" => "Action, Crime, Drame",
+        "description" => "Batman affronte le Joker qui sème le chaos à Gotham City.",
+        "url" => "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg",
+        "date" => "2008"
+    ],
+    [
+        "title" => "Pulp Fiction",
+        "actors" => "John Travolta, Uma Thurman, Samuel L. Jackson",
+        "genres" => "Crime, Drame",
+        "description" => "Histoires entrelacées de gangsters, boxeur et malfrats à Los Angeles.",
+        "url" => "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
+        "date" => "1994"
+    ],
     [
         "title" => "Interstellar",
         "actors" => "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
@@ -161,8 +169,3 @@ $films = [
         "date" => "1972"
     ]
 ];
-foreach ($films as $film) {
-    AddFilm($cnx, $film);
-}
-
-?>
