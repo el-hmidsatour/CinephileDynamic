@@ -1,168 +1,81 @@
 <?php
-include("../Config/database.php");
+include("../Config/cinephile.php");
 
-function AddFilm($cnx, $data) {
-    $title = addslashes($data['title']);
-    $actors = addslashes($data['actors']);
-    $genres = addslashes($data['genres']);
-    $description = addslashes($data['description']);
-    $url = addslashes($data['url']);
-    $date = addslashes(string: $data['date']);
-
-    $req = "INSERT INTO Film (Title, Actors, Genres, Description, url, Date)
-            VALUES ('$title', '$actors', '$genres', '$description', '$url', '$date');";
-    $cnx->query($req);
+function addFilm($pdo, $title, $url, $description, $year, $country = 'USA', $rating = null) {
+    // Si aucune note n'est fournie, on génère une note aléatoire entre 5 et 10
+    $finalRating = $rating ?? rand(5, 10);
+    
+    try {
+        $stmt = $pdo->prepare("INSERT INTO media 
+                              (Title, MediaUrl, Description, Type, Country, Year, ExpertRating) 
+                              VALUES (:title, :url, :description, 'f', :country, :year, :rating)");
+        
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':url', $url);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':country', $country);
+        $stmt->bindParam(':year', $year, PDO::PARAM_INT);
+        $stmt->bindParam(':rating', $finalRating, PDO::PARAM_INT);
+        
+        return $stmt->execute();
+        
+    } catch (PDOException $e) {
+        error_log("Erreur lors de l'ajout du film '$title': " . $e->getMessage());
+        return false;
+    }
 }
 
+// Tableau des films à insérer
 $films = [
-    // Blockbusters & Classiques
     [
-        "title" => "Interstellar",
-        "actors" => "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
-        "genres" => "Science-fiction, Drame",
-        "description" => "Une équipe d'explorateurs voyage à travers un trou de ver dans l'espace.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
-        "date" => "2014"
+        'title' => 'Inception',
+        'url' => 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg',
+        'description' => 'Un voleur qui s\'infiltre dans les rêves se voit confier la mission inverse : implanter une idée dans l\'esprit d\'une cible.',
+        'year' => 2010,
+        'country' => 'USA',
+        'rating' => 9
     ],
     [
-        "title" => "Fight Club",
-        "actors" => "Brad Pitt, Edward Norton, Helena Bonham Carter",
-        "genres" => "Drame",
-        "description" => "Un insomniaque mécontent forme un club de combat souterrain avec un vendeur de savon.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
-        "date" => "1999"
-    ],
-
-    // Films récents & Oscarisés
-    [
-        "title" => "Parasite",
-        "actors" => "Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong",
-        "genres" => "Thriller, Comédie noire",
-        "description" => "Une famille pauvre s'infiltre dans une riche maison en se faisant passer pour des employés qualifiés.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg",
-        "date" => "2019"
+        'title' => 'The Dark Knight',
+        'url' => 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg',
+        'description' => 'Batman affronte le Joker qui sème le chaos à Gotham City.',
+        'year' => 2008,
+        'country' => 'USA',
+        'rating' => 10
     ],
     [
-        "title" => "Dune (2021)",
-        "actors" => "Timothée Chalamet, Rebecca Ferguson, Oscar Isaac",
-        "genres" => "Science-fiction, Aventure",
-        "description" => "Le fils d'une famille noble tente de venger ses parents sur la planète désertique Arrakis.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
-        "date" => "2021"
-    ],
-    [
-        "title" => "Everything Everywhere All at Once",
-        "actors" => "Michelle Yeoh, Stephanie Hsu, Ke Huy Quan",
-        "genres" => "Science-fiction, Comédie",
-        "description" => "Une femme chinoise découvre qu'elle doit sauver le multivers.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMTAzMDg4NzU0._V1_.jpg",
-        "date" => "2022"
-    ],
-    [
-        "title" => "The Batman (2022)",
-        "actors" => "Robert Pattinson, Zoë Kravitz, Paul Dano",
-        "genres" => "Action, Crime, Drame",
-        "description" => "Batman enquête sur un tueur en série à Gotham City.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg",
-        "date" => "2022"
-    ],
-    [
-        "title" => "Nomadland",
-        "actors" => "Frances McDormand, David Strathairn, Linda May",
-        "genres" => "Drame",
-        "description" => "Une femme âgée voyage à travers l'Ouest américain après avoir tout perdu.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BMDRiZWUxNmItNDU5Yy00ODNmLTk0M2ItZjQzZTA5OTJkZjkyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
-        "date" => "2021"
-    ],
-
-    // Animations & Famille
-    [
-        "title" => "Spider-Man: Across the Spider-Verse",
-        "actors" => "Shameik Moore, Hailee Steinfeld, Oscar Isaac",
-        "genres" => "Animation, Action, Aventure",
-        "description" => "Miles Morales explore le multivers avec d'autres Spider-People.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BMzI0NmVkMjEtYmY4MS00ZDMxLTlkZmEtMzU4MDQxYTMzMjU2XkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_.jpg",
-        "date" => "2023"
-    ],
-    [
-        "title" => "The Super Mario Bros. Movie",
-        "actors" => "Chris Pratt, Anya Taylor-Joy, Charlie Day",
-        "genres" => "Animation, Aventure, Comédie",
-        "description" => "Mario et Luigi doivent sauver le Royaume Champignon de Bowser.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BOTJhNzlmNzctNTU5Yy00N2YwLThhMjQtZDM0YjEzN2Y0ZjNhXkEyXkFqcGdeQXVyMTEwMTQ4MzU5._V1_.jpg",
-        "date" => "2023"
-    ],
-    [
-        "title" => "Encanto",
-        "actors" => "Stephanie Beatriz, María Cecilia Botero, John Leguizamo",
-        "genres" => "Animation, Comédie musicale, Famille",
-        "description" => "Une jeune Colombienne doit sauver la magie de sa famille.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BNjE5NzA4ZDctOTJkZi00NzM0LTkwOTYtMDI4MmNkMzIxODhkXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg",
-        "date" => "2021"
-    ],
-    [
-        "title" => "Puss in Boots: The Last Wish",
-        "actors" => "Antonio Banderas, Salma Hayek, Harvey Guillén",
-        "genres" => "Animation, Aventure, Comédie",
-        "description" => "Le Chat Potté découvre qu'il a épuisé huit de ses neuf vies.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BNjMyMDBjMGUtYTE2Zi00NjNjLTg5ODAtNTAzZGM5ZTdhN2E5XkEyXkFqcGdeQXVyMTY5Nzc4MDY@._V1_.jpg",
-        "date" => "2022"
-    ],
-
-    // SF & Fantastique
-    [
-        "title" => "Blade Runner 2049",
-        "actors" => "Ryan Gosling, Harrison Ford, Ana de Armas",
-        "genres" => "Science-fiction, Drame, Thriller",
-        "description" => "Un nouveau blade runner découvre un secret qui pourrait plonger la société dans le chaos.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg",
-        "date" => "2017"
-    ],
-    [
-        "title" => "The Matrix",
-        "actors" => "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
-        "genres" => "Science-fiction, Action",
-        "description" => "Un hacker découvre que la réalité est une simulation créée par des machines intelligentes.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
-        "date" => "1999"
-    ],
-    [
-        "title" => "Avatar: The Way of Water",
-        "actors" => "Sam Worthington, Zoe Saldana, Sigourney Weaver",
-        "genres" => "Science-fiction, Aventure",
-        "description" => "Jake Sully et sa famille luttent pour protéger Pandora.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg",
-        "date" => "2022"
-    ],
-
-    // Drames & Thrillers
-    [
-        "title" => "Joker",
-        "actors" => "Joaquin Phoenix, Robert De Niro, Zazie Beetz",
-        "genres" => "Drame, Thriller",
-        "description" => "Un comédien raté sombre dans la folie et le crime à Gotham City.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
-        "date" => "2019"
-    ],
-    [
-        "title" => "The Shawshank Redemption",
-        "actors" => "Tim Robbins, Morgan Freeman, Bob Gunton",
-        "genres" => "Drame",
-        "description" => "Un banquier condamné à perpétuité trouve rédemption en prison.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg",
-        "date" => "1994"
-    ],
-    [
-        "title" => "The Godfather",
-        "actors" => "Marlon Brando, Al Pacino, James Caan",
-        "genres" => "Crime, Drame",
-        "description" => "Le patriarche d'une famille mafieuse transmet le contrôle à son fils réticent.",
-        "url" => "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
-        "date" => "1972"
+        'title' => 'Parasite',
+        'url' => 'https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg',
+        'description' => 'Une famille pauvre s\'infiltre dans une riche maison en se faisant passer pour des employés qualifiés.',
+        'year' => 2019,
+        'country' => 'South Korea',
+        'rating' => 10
     ]
 ];
+
+// Initialisation du compteur
+$successCount = 0;
+
+// Boucle d'insertion
 foreach ($films as $film) {
-    AddFilm($cnx, $film);
+    $result = addFilm(
+        $pdo,
+        $film['title'],
+        $film['url'],
+        $film['description'],
+        $film['year'],
+        $film['country'],
+        $film['rating'] ?? null
+    );
+    
+    if ($result) {
+        $successCount++;
+        echo "Film '{$film['title']}' ajouté avec succès.<br>";
+    } else {
+        echo "Échec lors de l'ajout du film '{$film['title']}'.<br>";
+    }
 }
 
+// Résumé final
+echo "<p>Opération terminée : $successCount films insérés sur " . count($films) . ".</p>";
 ?>

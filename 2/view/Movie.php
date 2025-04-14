@@ -4,7 +4,7 @@ include("../Config/database.php");
 
 try {
     // Récupérer les films depuis la base de données
-    $stmt = $cnx->query("SELECT Title, url, date FROM Film");
+    $stmt = $cnx->query("SELECT Title, MediaUrl, Year FROM Media");
     $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Erreur de base de données : " . $e->getMessage());
@@ -62,11 +62,11 @@ try {
                                 <?php foreach ($movies as $movie): ?>
                                 <div class="carousel-slide">
                                     <div class="movie-card">
-                                        <img src="<?= htmlspecialchars($movie['url']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>" class="movie-poster">
+                                        <img src="<?= htmlspecialchars($movie['MediaUrl']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>" class="movie-poster">
                                         <div class="movie-info">
                                             <h3 class="movie-title"><?= htmlspecialchars($movie['Title']) ?></h3>
                                             <div class="movie-meta">
-                                                <span><?= htmlspecialchars($movie['date']) ?></span>
+                                                <span><?= htmlspecialchars($movie['Year']) ?></span>
                                                 <span class="movie-rating"><i class="fas fa-star"></i> <?= rand(5, 9) ?>.<?= rand(0, 9) ?></span>
                                             </div>
                                         </div>

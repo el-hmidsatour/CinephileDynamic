@@ -1,0 +1,30 @@
+INSERT INTO media (Title, MediaUrl, Description, Type, Country, Year, ExpertRating) VALUES
+-- Blockbusters & Classiques
+('Inception', 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg', 'Un voleur qui s\'infiltre dans les rêves se voit confier la mission inverse : implanter une idée dans l\'esprit d\'une cible.', 'f', 'USA', '2010', 9),
+('The Dark Knight', 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg', 'Batman affronte le Joker qui sème le chaos à Gotham City.', 'f', 'USA', '2008', 10),
+('Pulp Fiction', 'https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 'Histoires entrelacées de gangsters, boxeur et malfrats à Los Angeles.', 'f', 'USA', '1994', 9),
+('Interstellar', 'https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg', 'Une équipe d\'explorateurs voyage à travers un trou de ver dans l\'espace.', 'f', 'USA', '2014', 8),
+('Fight Club', 'https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 'Un insomniaque mécontent forme un club de combat souterrain avec un vendeur de savon.', 'f', 'USA', '1999', 9),
+
+-- Films récents & Oscarisés
+('Parasite', 'https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg', 'Une famille pauvre s\'infiltre dans une riche maison en se faisant passer pour des employés qualifiés.', 'f', 'South Korea', '2019', 10),
+('Dune (2021)', 'https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'Le fils d\'une famille noble tente de venger ses parents sur la planète désertique Arrakis.', 'f', 'USA', '2021', 8),
+('Everything Everywhere All at Once', 'https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMTAzMDg4NzU0._V1_.jpg', 'Une femme chinoise découvre qu\'elle doit sauver le multivers.', 'f', 'USA', '2022', 9),
+('The Batman (2022)', 'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg', 'Batman enquête sur un tueur en série à Gotham City.', 'f', 'USA', '2022', 8),
+('Nomadland', 'https://m.media-amazon.com/images/M/MV5BMDRiZWUxNmItNDU5Yy00ODNmLTk0M2ItZjQzZTA5OTJkZjkyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'Une femme âgée voyage à travers l\'Ouest américain après avoir tout perdu.', 'f', 'USA', '2021', 8),
+
+-- Animations & Famille
+('Spider-Man: Across the Spider-Verse', 'https://m.media-amazon.com/images/M/MV5BMzI0NmVkMjEtYmY4MS00ZDMxLTlkZmEtMzU4MDQxYTMzMjU2XkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_.jpg', 'Miles Morales explore le multivers avec d\'autres Spider-People.', 'f', 'USA', '2023', 9),
+('The Super Mario Bros. Movie', 'https://m.media-amazon.com/images/M/MV5BOTJhNzlmNzctNTU5Yy00N2YwLThhMjQtZDM0YjEzN2Y0ZjNhXkEyXkFqcGdeQXVyMTEwMTQ4MzU5._V1_.jpg', 'Mario et Luigi doivent sauver le Royaume Champignon de Bowser.', 'f', 'USA', '2023', 7),
+('Encanto', 'https://m.media-amazon.com/images/M/MV5BNjE5NzA4ZDctOTJkZi00NzM0LTkwOTYtMDI4MmNkMzIxODhkXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg', 'Une jeune Colombienne doit sauver la magie de sa famille.', 'f', 'USA', '2021', 8),
+('Puss in Boots: The Last Wish', 'https://m.media-amazon.com/images/M/MV5BNjMyMDBjMGUtYTE2Zi00NjNjLTg5ODAtNTAzZGM5ZTdhN2E5XkEyXkFqcGdeQXVyMTY5Nzc4MDY@._V1_.jpg', 'Le Chat Potté découvre qu\'il a épuisé huit de ses neuf vies.', 'f', 'USA', '2022', 8),
+
+-- SF & Fantastique
+('Blade Runner 2049', 'https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg', 'Un nouveau blade runner découvre un secret qui pourrait plonger la société dans le chaos.', 'f', 'USA', '2017', 9),
+('The Matrix', 'https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg', 'Un hacker découvre que la réalité est une simulation créée par des machines intelligentes.', 'f', 'USA', '1999', 10),
+('Avatar: The Way of Water', 'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg', 'Jake Sully et sa famille luttent pour protéger Pandora.', 'f', 'USA', '2022', 8),
+
+-- Drames & Thrillers
+('Joker', 'https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'Un comédien raté sombre dans la folie et le crime à Gotham City.', 'f', 'USA', '2019', 9),
+('The Shawshank Redemption', 'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg', 'Un banquier condamné à perpétuité trouve rédemption en prison.', 'f', 'USA', '1994', 10),
+('The Godfather', 'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 'Le patriarche d\'une famille mafieuse transmet le contrôle à son fils réticent.', 'f', 'USA', '1972', 10);
