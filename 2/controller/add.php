@@ -27,28 +27,6 @@ function addFilm($pdo, $title, $url, $description, $year, $country = 'USA', $rat
     }
 }
 
-// Tableau des films à insérer
-$films = [
-    [
-        'title' => 'Bolice',
-        'url' => 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg',
-        'description' => 'Ammar',
-        'year' => 2024,
-        'country' => 'Tunisia',
-        'rating' => 6
-    ]
-];
 
-// Initialisation du compteur
-$successCount = 0;
 
-// Boucle d'insertion
-foreach ($films as $film) {
-    $success = addFilm($cnx, $film['title'], $film['url'], $film['description'], $film['year'], $film['country'] ?? 'USA', $film['rating'] ?? null);
-    echo $success ? "Film '{$film['title']}' ajouté.<br>" : "Échec ajout '{$film['title']}'.<br>";
-    if ($success) $successCount++;
-}
-
-// Résumé final
-echo "<p>Opération terminée : $successCount films insérés sur " . count($films) . ".</p>";
 ?>
