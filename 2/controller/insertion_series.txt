@@ -1,0 +1,13 @@
+[
+    ("Capharnaüm", "https://www.allocine.fr/film/fichefilm_gen_cfilm=251090.html", "Un garçon libanais poursuit ses parents en justice pour l'avoir mis au monde.", "f", "Liban", "2018", 9),
+    ("Wadjda", "https://www.allocine.fr/film/fichefilm_gen_cfilm=207621.html", "Une jeune fille saoudienne défie les normes pour acheter un vélo.", "f", "Arabie Saoudite", "2012", 8),
+    ("Theeb", "https://www.allocine.fr/film/fichefilm_gen_cfilm=230605.html", "Un jeune bédouin navigue dans le désert pendant la Première Guerre mondiale.", "f", "Jordanie", "2014", 8),
+    ("Barakah Meets Barakah", "https://www.allocine.fr/film/fichefilm_gen_cfilm=245040.html", "Une comédie romantique saoudienne sur un couple improbable.", "f", "Arabie Saoudite", "2016", 7),
+    ("La Belle et la Meute", "https://www.allocine.fr/film/fichefilm_gen_cfilm=253681.html", "Une étudiante tunisienne lutte pour la justice après une agression.", "f", "Tunisie", "2017", 7),
+    ("L'Maktoub", "https://www.themoviedb.org/tv/216818-l-maktoub", "Une cheikha marocaine élève seule sa fille, confrontée aux préjugés sociaux.", "s", "Maroc", "2022", 9),
+    ("Fauda", "https://www.senscritique.com/serie/Fauda/17624639", "Une unité israélienne infiltrée dans les territoires palestiniens.", "s", "Israël", "2015", 8),
+    ("Maraya", "https://www.justwatch.com/es/serie/maraya", "Série syrienne satirique abordant des thèmes sociaux et politiques.", "s", "Syrie", "1982", 8),
+    ("Leila et les Loups", "https://www.allocine.fr/film/fichefilm_gen_cfilm=123456.html", "Une femme explore l'histoire oubliée des femmes dans les conflits du Moyen-Orient.", "f", "Liban", "1984", 7),
+    ("Al Hayba", "https://www.themoviedb.org/tv/72005-al-hayba", "Un chef de clan libanais confronté à des défis familiaux et criminels.", "s", "Liban", "2017", 8)
+]
+--Eya Lassoued voici les informations completes justetu accede au lien et tu telecharge l'image et l'inserer dans le drive
