@@ -1,12 +1,16 @@
 <?php
 // Connexion à la base de données
 require_once("../Config/database.php");
+include("../controller/traitement.php");
 
 // Récupération des utilisateurs
 $users = [];
 try {
-    $stmt = $cnx->query("SELECT * FROM users ORDER BY UserId DESC");
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $users = searchUsers($cnx, $_GET['search']);
+    } else {
+        $users = getAllUsers($cnx);
+    } 
 } catch (PDOException $e) {
     $error = "Erreur lors de la récupération des utilisateurs: " . $e->getMessage();
 }
@@ -29,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $hashedPassword,
                         $_POST['PictureUrl'] ?? 'default.jpg'
                     ]);
-                    header("Location: ad_users.php?success=add");
+                    header("Location: admin_users.php?success=add");
                     exit();
                 } catch (PDOException $e) {
                     $error = "Erreur lors de l'ajout: " . $e->getMessage();
@@ -71,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt = $cnx->prepare($sql);
                     $stmt->execute($params);
                     
-                    header("Location: ad_users.php?success=edit");
+                    header("Location: admin_users.php?success=edit");
                     exit();
                 } catch (PDOException $e) {
                     $error = "Erreur lors de la modification: " . $e->getMessage();
@@ -83,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 try {
                     $stmt = $cnx->prepare("DELETE FROM users WHERE UserId = ?");
                     $stmt->execute([$_POST['userId']]);
-                    header("Location: ad_users.php?success=delete");
+                    header("Location: admin_users.php?success=delete");
                     exit();
                 } catch (PDOException $e) {
                     $error = "Erreur lors de la suppression: " . $e->getMessage();
@@ -143,7 +147,7 @@ if (isset($_GET['edit'])) {
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="ad_users.php" class="sidebar-link active">
+                <a href="admin_users.php" class="sidebar-link active">
                     <i class="fas fa-users"></i>
                     <span>Utilisateurs</span>
                 </a>
@@ -206,7 +210,7 @@ if (isset($_GET['edit'])) {
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <form method="GET" class="search-container">
+                        <form method="GET" class="search-container" >
                             <input type="text" name="search" class="form-control" 
                                    placeholder="Rechercher par nom, email ou téléphone..." 
                                    value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
@@ -256,7 +260,7 @@ if (isset($_GET['edit'])) {
                                 <td><?= htmlspecialchars($user['Email']) ?></td>
                                 <td><?= date('d/m/Y', strtotime($user['created_at'] ?? 'now')) ?></td>
                                 <td>
-                                    <a href="ad_users.php?edit=<?= $user['UserId'] ?>" class="btn btn-sm btn-primary">
+                                    <a href="admin_users.php?edit=<?= $user['UserId'] ?>" class="btn btn-sm btn-primary">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form method="POST" style="display:inline" onsubmit="return confirm('Supprimer cet utilisateur?')">
@@ -360,7 +364,7 @@ if (isset($_GET['edit'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Modifier utilisateur</h5>
-                    <a href="ad_users.php" class="btn-close"></a>
+                    <a href="admin_users.php" class="btn-close"></a>
                 </div>
                 <form method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="edit">
@@ -413,7 +417,7 @@ if (isset($_GET['edit'])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="ad_users.php" class="btn btn-secondary">Annuler</a>
+                        <a href="admin_users.php" class="btn btn-secondary">Annuler</a>
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
                 </form>
@@ -431,7 +435,7 @@ if (isset($_GET['edit'])) {
             if (editModal) {
                 editModal.addEventListener('click', function(e) {
                     if (e.target === this) {
-                        window.location.href = 'ad_users.php';
+                        window.location.href = 'admin_users.php';
                     }
                 });
             }
