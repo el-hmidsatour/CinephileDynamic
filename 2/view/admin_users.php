@@ -129,41 +129,31 @@ if (isset($_GET['edit'])) {
         </div>
         <div class="sidebar-menu">
             <div class="sidebar-item">
-                <a href="dashboard.php" class="sidebar-link">
+                <a href="admin.php" class="sidebar-link">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="ad_films.php" class="sidebar-link">
+                <a href="Media.php" class="sidebar-link">
                     <i class="fas fa-video"></i>
-                    <span>Films</span>
+                    <span>Media</span>
                 </a>
             </div>
-            <div class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="fas fa-tv"></i>
-                    <span>Séries</span>
-                </a>
-            </div>
+           
             <div class="sidebar-item">
                 <a href="admin_users.php" class="sidebar-link active">
                     <i class="fas fa-users"></i>
-                    <span>Utilisateurs</span>
+                    <span>Users</span>
                 </a>
             </div>
             <div class="sidebar-item">
                 <a href="#" class="sidebar-link">
                     <i class="fas fa-comments"></i>
-                    <span>Commentaires</span>
+                    <span>Comments</span>
                 </a>
             </div>
-            <div class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Statistiques</span>
-                </a>
-            </div>
+            
             <div class="sidebar-item">
                 <a href="#" class="sidebar-link">
                     <i class="fas fa-cog"></i>
