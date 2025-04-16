@@ -93,4 +93,43 @@ function addUserWithMD5($db, $userData) {
         return ['success' => false, 'message' => "Database error"];
     }
 }
+
+AddUser($cnx, [
+    'FirstName' => 'Marie',
+    'LastName' => 'Martin',
+    'Number' => '0698765432',
+    'Email' => 'marie.martin@example.com',
+    'password' => 'Rh2023*',
+    'PictureUrl' => 'marie_avatar.png'
+]);
+
+// Utilisateur 3 - Développeur (image par défaut)
+AddUser($cnx, [
+    'FirstName' => 'Thomas',
+    'LastName' => 'Bernard',
+    'Number' => '0678912345',
+    'Email' => 'thomas.b@dev.com',
+    'password' => 'Codeur$56',
+    // PictureUrl non spécifiée -> utilise 'default.jpg'
+]);
+
+// Utilisateur 4 - Commercial
+AddUser($cnx, [
+    'FirstName' => 'Sophie',
+    'LastName' => 'Leroy',
+    'Number' => '0654321890',
+    'Email' => 's.leroy@example.com',
+    'password' => 'Ventes2024',
+    'PictureUrl' => 'sophie_l.jpg'
+]);
+
+// Utilisateur 5 - Stagiaire
+AddUser($cnx, [
+    'FirstName' => 'Alexandre',
+    'LastName' => 'Petit',
+    'Number' => '0644556677',
+    'Email' => 'alex.petit@example.com',
+    'password' => 'Stage#123',
+    'PictureUrl' => 'alex_p.jpg'
+]);
 ?>
