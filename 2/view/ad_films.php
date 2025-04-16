@@ -1,3 +1,68 @@
+<?php
+include("../config/database.php");
+include("../controller/add.php");
+
+$searchResults = [];
+$success = null;
+$movie = null;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Title'])) {
+    $title = $_POST['Title'] ?? '';
+    $url = $_POST['MediaUrl'] ?? '';
+    $description = $_POST['Description'] ?? '';
+    $type = $_POST['Type'] ?? 'f';
+    $country = $_POST['Country'] ?? 'USA';
+    $year = $_POST['Year'] ?? 2000;
+    $rating = $_POST['ExpertRating'] ?? null;
+
+    if (!empty($_POST['id'])) {
+        $id = $_POST['id'];
+        $stmt = $cnx->prepare("UPDATE media SET Title = :title, MediaUrl = :url, Description = :description, Type = :type, Country = :country, Year = :year, ExpertRating = :rating WHERE id = :id");
+        $stmt->execute([
+            'title' => $title,
+            'url' => $url,
+            'description' => $description,
+            'type' => $type,
+            'country' => $country,
+            'year' => $year,
+            'rating' => $rating,
+            'id' => $id
+        ]);
+        $success = "Movie updated successfully!";
+    } else {
+        $success = addFilm($cnx, $title, $url, $description, $year, $country, $rating);
+    }
+}
+
+if (isset($_POST['searchTitle'])) {
+    $searchTitle = $_POST['searchTitle'];
+    $stmt = $cnx->prepare("SELECT * FROM media WHERE Title LIKE :title");
+    $stmt->execute(['title' => "%$searchTitle%"]);
+    $searchResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+else{
+    
+    $req= "SELECT * FROM media ";
+    $stmt = $cnx->query($req);
+    $searchResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+if (isset($_GET['delete']) && isset($_GET['id'])) {
+    $movieId = $_GET['id'];
+    $deleteStmt = $cnx->prepare("DELETE FROM media WHERE id = :id");
+    $deleteStmt->execute(['id' => $movieId]);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+if (isset($_GET['edit']) && isset($_GET['id'])) {
+    $movieId = $_GET['id'];
+    $stmt = $cnx->prepare("SELECT * FROM media WHERE id = :id");
+    $stmt->execute(['id' => $movieId]);
+    $movie = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,43 +76,48 @@
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-    <!-- Sidebar Identique pour toutes les pages -->
-    <div class="sidebar">
+<div class="sidebar">
         <div class="sidebar-brand">
             <h2><i class="fas fa-film me-2"></i> CinePhile Admin</h2>
         </div>
         <div class="sidebar-menu">
             <div class="sidebar-item">
-                <a href="dashboard.html" class="sidebar-link">
+                <a href="admin.php" class="sidebar-link">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="films.html" class="sidebar-link active">
+                <a href="Media.php" class="sidebar-link">
                     <i class="fas fa-video"></i>
-                    <span>Films</span>
+                    <span>Media</span>
                 </a>
             </div>
+           
             <div class="sidebar-item">
-                <a href="users.html" class="sidebar-link">
+                <a href="admin_users.php" class="sidebar-link active">
                     <i class="fas fa-users"></i>
-                    <span>Utilisateurs</span>
+                    <span>Users</span>
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="comments.html" class="sidebar-link">
+                <a href="#" class="sidebar-link">
                     <i class="fas fa-comments"></i>
-                    <span>Commentaires</span>
+                    <span>Comments</span>
                 </a>
             </div>
-            <!-- Autres liens... -->
+            
+            <div class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </a>
+            </div>
         </div>
     </div>
 
-    <!-- Main Content -->
+
     <div class="main-content">
-        <!-- Header Identique -->
         <div class="header">
             <h4>Gestion des Films</h4>
             <div class="user-menu">
@@ -62,9 +132,10 @@
             </div>
         </div>
 
-        <!-- Contenu spécifique à la page Films -->
         <div class="search-container">
-            <input type="text" class="form-control" placeholder="Rechercher un film...">
+            <form method="POST">
+                <input type="text" class="form-control" placeholder="Rechercher un film..." name="searchTitle" required>
+            </form>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFilmModal">
                 <i class="fas fa-plus me-2"></i>Ajouter
             </button>
@@ -73,43 +144,101 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">Liste des Films</h5>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="showArchived">
-                    <label class="form-check-label" for="showArchived">Afficher archivés</label>
-                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <!-- Tableau des films... -->
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Year</th>
+
+                                <th>Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($searchResults as $movieRow) { ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($movieRow['Title']); ?></td>
+                                <td><?php echo htmlspecialchars($movieRow['Year']); ?></td>
+
+                                <td>
+                                    <a href="?edit=true&id=<?php echo $movieRow['Id']; ?>" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i> Modify
+                                    </a>
+                                    <a href="?delete=true&id=<?php echo $movieRow['Id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this movie?')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Modal d'ajout de film -->
+        <!-- Add/Modify Film Modal -->
         <div class="modal fade" id="addFilmModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Ajouter un film</h5>
+                        <h5 class="modal-title"><?php echo isset($movie) ? 'Modifier le film' : 'Ajouter un film'; ?></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="filmForm">
-                            <!-- Formulaire d'ajout... -->
+                        <form id="filmForm" method="POST" action="ad_films.php">
+                            <input type="hidden" name="id" value="<?php echo isset($movie) ? $movie['Id'] : ''; ?>">
+
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" name="Title" value="<?php echo isset($movie) ? htmlspecialchars($movie['Title']) : ''; ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mediaUrl" class="form-label">Media URL</label>
+                                <input type="url" class="form-control" id="mediaUrl" name="MediaUrl" value="<?php echo isset($movie) ? htmlspecialchars($movie['MediaUrl']) : ''; ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="Description" rows="3" required><?php echo isset($movie) ? htmlspecialchars($movie['Description']) : ''; ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="type" class="form-label">Type</label>
+                                <input type="text" class="form-control" id="type" name="Type" value="<?php echo isset($movie) ? htmlspecialchars($movie['Type']) : ''; ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="country" class="form-label">Country</label>
+                                <input type="text" class="form-control" id="country" name="Country" value="<?php echo isset($movie) ? htmlspecialchars($movie['Country']) : ''; ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="year" class="form-label">Year</label>
+                                <input type="number" class="form-control" id="year" name="Year" value="<?php echo isset($movie) ? htmlspecialchars($movie['Year']) : ''; ?>" min="1800" max="2100" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expertRating" class="form-label">Expert Rating (0–10)</label>
+                                <input type="number" class="form-control" id="expertRating" name="ExpertRating" value="<?php echo isset($movie) ? htmlspecialchars($movie['ExpertRating']) : ''; ?>" step="0.1" min="0" max="10" required>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" form="filmForm" class="btn btn-primary">Enregistrer</button>
+                        <button type="submit" form="filmForm" class="btn btn-primary"><?php echo isset($movie) ? 'Modifier' : 'Enregistrer'; ?></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
+    <?php if (isset($_GET['edit']) && $movie): ?>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const editModal = new bootstrap.Modal(document.getElementById('addFilmModal'));
+            editModal.show();
+        });
+    </script>
+    <?php endif; ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/admin.js"></script>
 </body>

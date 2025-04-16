@@ -17,7 +17,7 @@ function addFilm($pdo, $title, $url, $description, $year, $country = 'USA', $rat
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':country', $country);
         $stmt->bindParam(':year', $year, PDO::PARAM_INT);
-        $stmt->bindParam(':rating', $finalRating, PDO::PARAM_INT);
+        $stmt->bindParam(':rating', $finalRating, PDO::PARAM_STR);
         
         return $stmt->execute();
         
