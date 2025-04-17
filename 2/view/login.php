@@ -1,56 +1,80 @@
 <?php 
-	include("navandside.php");
+session_start();
+include("navandside.php");
+include("../Config/database.php");
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    if ($email === 'admin@gmail.com' && $password==='cinephile') {
+        header("Location: admin_users.php");
+    }
+    $stmt = $cnx->prepare("SELECT * FROM Users WHERE Email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch();
+    if (isset($user)) {
+        if($user['Password'] !== $password) {
+        $_SESSION['user'] = [
+            'id' => $user['UserId'],
+            'name' => $user['FirstName'] . ' ' . $user['LastName'],
+            'email' => $user['Email'],
+            'role' => $user['Role'],
+            'picture' => $user['PictureUrl'] ?? 'https://i.pravatar.cc/50'
+        ];
+        header("Location: home.php");
+        exit();
+    } else {
+        echo "<p style='color:red;text-align:center'>Email ou mot de passe incorrect</p>";
+    }
+}}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="sign_login.css">
     <link rel="stylesheet" href="navandside.css">
-        <link 
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Sen:wght@400..800&display=swap"
-         rel="stylesheet">
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-    <title>Login </title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sen:wght@400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <title>Login</title>
 </head>
 <body>
     <div class="navbar">
         <div class="navbar-container">
             <div class="logo-container"><h1 class="logo">CinePhile</h1></div>
             <div class="menu-container">
-              <ul class="menu-list">
-                  <a href="index.php">Home</a>
-                  <a href="Movie.php">Movies</a>
-                  <a href="Series.php">Series</a>
-                  <a href="Popular.php">Popular</a>
-                 <a href="Arabic_Trends.php">Arabic Trends</a>
-              </ul>
+                <ul class="menu-list">
+                    <a href="index.php">Home</a>
+                    <a href="Movie.php">Movies</a>
+                    <a href="Series.php">Series</a>
+                    <a href="Popular.php">Popular</a>
+                    <a href="Arabic_Trends.php">Arabic Trends</a>
+                </ul>
             </div>
             <div class="navbar-profile-section">
-      <div class="toggle">
-          <i class="fas fa-moon toggle-icon"></i>
-          <i class="fas fa-sun toggle-icon"></i>
-          <div class="toggle-ball"></div>
-      </div>
-      
-      
-  </div>
-</div>
-</div>
+                <div class="toggle">
+                    <i class="fas fa-moon toggle-icon"></i>
+                    <i class="fas fa-sun toggle-icon"></i>
+                    <div class="toggle-ball"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="sidebar">
         <i class="left-menu-icon fas fa-search"></i>
         <i class="left-menu-icon fas fa-home"></i>
         <i class="left-menu-icon fas fa-users"></i>
         <i class="left-menu-icon fas fa-bookmark"></i>
-        
     </div>
-    
+
     <div class="wrapper"> 
-        <form id="loginForm">
+        <form method="POST" action="login.php">
             <h2>Login</h2>
-            <div id="error-message" style="color:red; margin-bottom:15px; display:none;"></div>
+            
             <div class="input-field">
                 <input name="email" type="text" required placeholder="Enter Your Email">
             </div>
@@ -74,21 +98,7 @@
             </div>
         </form>
     </div>
-    
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[name="email"]').value;
-            const password = this.querySelector('input[name="password"]').value;
-            
-            if(email === 'admin@gmail.com' && password === 'cinephile') {
-                localStorage.setItem('adminAuth', 'true');
-                window.location.href = 'admin.php';  // Changé vers admin.html
-            } else {
-                alert('Identifiants incorrects!');
-            }
-        });
-    </script>
+
     <script src="app.js"></script>
-  
-        
+</body>
+</html>
