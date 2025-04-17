@@ -28,3 +28,30 @@ INSERT INTO media (Title, MediaUrl, Description, Type, Country, Year, ExpertRati
 ('Joker', 'https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'Un comédien raté sombre dans la folie et le crime à Gotham City.', 'f', 'USA', '2019', 9),
 ('The Shawshank Redemption', 'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg', 'Un banquier condamné à perpétuité trouve rédemption en prison.', 'f', 'USA', '1994', 10),
 ('The Godfather', 'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 'Le patriarche d\'une famille mafieuse transmet le contrôle à son fils réticent.', 'f', 'USA', '1972', 10);
+
+
+
+
+
+
+             test
+
+
+             INSERT INTO media (Title, MediaUrl, Description, Type, Country, Year, ExpertRating) VALUES
+-- Tunisian Movies
+('Halfaouine: Boy of the Terraces', 'https://drive.google.com/thumbnail?id=12LEEMkw5cmWpDhy761et6cfr9BY3mo-G&sz=w1000', 'A coming-of-age story about a boy navigating adolescence in Tunis.', 'f', 'Tunisia', '1990', 8.2),
+('As I Open My Eyes', 'https://drive.google.com/thumbnail?id=1BgWjEbNgnTFbkygI-tVMZVddd0bQ88Z8&sz=w1000', 'A young woman explores her passion for music amidst political tensions.', 'f', 'Tunisia', '2015', 8.0),
+('Hedi', 'https://drive.google.com/thumbnail?id=1d0kSHL3KN5IKHCBdcvzn2RnrLPImxP1w&sz=w1000', 'A man torn between tradition and personal freedom faces life-changing decisions.', 'f', 'Tunisia', '2016', 7.8),
+('A Son (Un Fils)', 'https://drive.google.com/thumbnail?id=1B9TyLJjAmuM4phoOc959VIHEHskI9Cuc&sz=w1000', 'A family’s life unravels after a tragic event reveals hidden secrets.', 'f', 'Tunisia', '2019', 8.5),
+('Dachra', 'https://drive.google.com/thumbnail?id=1P5SUr-eJbBDf74Ti3fuaLdx8g6kVEIPY&sz=w1000', 'Three journalism students investigate a mysterious village with dark secrets.', 'f', 'Tunisia', '2018', 7.4),
+('Fatma 75', 'https://drive.google.com/thumbnail?id=1azQ2Wdeg18SgkUVskfTfRiMVLX87IXK9&sz=w1000', 'A documentary-style film exploring the role of women in Tunisian society.', 'f', 'Tunisia', '1975', 7.2),
+('The Silences of the Palace', 'https://drive.google.com/thumbnail?id=1fE0NDnsCAnfypywD2BfWuULjnDOYE00i&sz=w1000', 'A woman reflects on her mother’s life as a servant in a royal palace.', 'f', 'Tunisia', '1994', 8.1),
+('Bezness', 'https://drive.google.com/thumbnail?id=1ykX-ohe2U9U2M7trU7VuYheUoHfMxZSS&sz=w1000', 'A look into the lives of young men engaging in relationships with tourists.', 'f', 'Tunisia', '1992', 7.6),
+('Bent Familia', 'https://drive.google.com/thumbnail?id=18qvEmGdK2TV3v2VtcstWa4yyVwtzthhx&sz=w1000', 'Three women in Tunis navigate friendship and societal expectations.', 'f', 'Tunisia', '1997', 7.8),
+('Satin Rouge', 'https://drive.google.com/thumbnail?id=1d46AXTlXDVRyPm5JV7vFhuqTw7NPNksZ&sz=w1000', 'A widow discovers a new sense of freedom through belly dancing.', 'f', 'Tunisia', '2002', 7.3),
+('Bab\'Aziz: The Prince Who Contemplated His Soul', 'https://drive.google.com/thumbnail?id=1iuFHIs6qVO3C5rBLY-OqxE87h18ieRGB&sz=w1000', 'A mystical journey of a blind dervish and his granddaughter.', 'f', 'Tunisia', '2005', 8.0),
+('Making Of', 'https://drive.google.com/thumbnail?id=1gbTODqhV01-Wih-biCao5Jq90RzDOT_Z&sz=w1000', 'A young man becomes involved in extremist activities, leading to tragic consequences.', 'f', 'Tunisia', '2006', 7.9),
+('The Season of Men', 'https://drive.google.com/thumbnail?id=1oTzQgNvscKEWaDWcTHWUkyAiqnWNzION&sz=w1000', 'A woman’s struggle for independence in a patriarchal society.', 'f', 'Tunisia', '2000', 7.6),
+('Bedwin Hacker', 'https://drive.google.com/thumbnail?id=1vha5LcM5PQ88ZkzIkbWFs6EKwSzwYrPM&sz=w1000', 'A female hacker challenges Western perceptions of Arab women.', 'f', 'Tunisia', '2003', 7.1),
+('Bastardo', 'https://drive.google.com/thumbnail?id=18TVH4S6zVcvJdyTZzwOQ5qGtJLWHc0c6&sz=w1000', 'A man gains power in his neighborhood after installing a mobile antenna.', 'f', 'Tunisia', '2013', 7.5),
+('Goha', 'https://drive.google.com/thumbnail?id=1gYZ98sPoqOW8JCLCqojLSgxr9METRAT4&sz=w1000', 'A comedic tale of a young man navigating love and tradition.', 'f', 'Tunisia', '1958', 7.4);
