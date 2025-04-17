@@ -83,8 +83,65 @@ try {
             </div>
             
             <section class="cine-team">
-                <!-- Votre section équipe -->
-            </section>
+            <div class="team-container">
+                <h3 class="section-title">Our Team
+                </h3>
+                <p class="section-subtitle">The enthusiasts behind CinePhile</p>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <div class="member-overlay">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                        <h4>Ahmed Ameur Mestiri</h4>
+                        <p class="role"></p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <div class="member-overlay">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                        <h4>Mohamed Rayen Touati</h4>
+                        <p class="role"></p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <div class="member-overlay">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                        <h4>Eya Lassoued</h4>
+                        <p class="role"></p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cine-footer">
+                    <p class="copyright">&copy; 2025 CinePhile. All rights reserved.</p>
+                    <div class="legal-links">
+                        <a href="about_us.html">About Us</a>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
 
             <script src="app.js"></script>
             <script src="MV_CAROUSEL.js"></script>

@@ -11,7 +11,6 @@ print '<div class="navbar">
                     <a href="home.php">Home</a>
                     <a href="Movie.php">Movies</a>
                     <a href="Series.php">Series</a>
-                    <a href="Popular.php">Popular</a>
                     <a href="Arabic_Trends.php">Arabic Trends</a>
                 </ul>
             </div>
