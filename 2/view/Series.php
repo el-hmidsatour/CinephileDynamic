@@ -1,5 +1,15 @@
 <?php 
-	include("navandside.php");
+include("navandside.php");
+include("../Config/database.php");
+
+try {
+    // Récupérer les films depuis la base de données
+    $stmt = $cnx->query("SELECT Title, MediaUrl, Year FROM Media where type='f'");
+    $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur de base de données : " . $e->getMessage());
+}
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,202 +58,37 @@
           <!-- ... (contenu précédent inchangé jusqu'à après search-filter-container) ... -->
 
           <div class="movie-carousels-container">
-            <!-- Carrousel Nouveautés -->
-            <div class="carousel-section">
-                <h2 class="carousel-title">New Releases <span class="see-all">See all</span></h2>
-                <div class="carousel-container">
-                    <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
-                    <div class="carousel">
-                        <div class="carousel-track">
-                            <div class="carousel-slide">
-                                <div class="movie-card">
-                                    <img src="https://tse3.mm.bing.net/th?id=OIP.opA1o2AUbiKhLN8S8-DRnwHaK-&pid=Api" alt="Reminiscence" class="movie-poster">
-                                    <div class="movie-info">
-                                        <h3 class="movie-title">Reminiscence</h3>
-                                        <div class="movie-meta">
-                                            <span>2021</span>
-                                            <span class="movie-rating"><i class="fas fa-star"></i> 6.5</span>
+                <!-- Carrousel Principal -->
+                <div class="carousel-section">
+                    <h2 class="carousel-title">All Movies <span class="see-all">See all</span></h2>
+                    <div class="carousel-container">
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <div class="carousel">
+                            <div class="carousel-track">
+                                <?php foreach ($movies as $movie): ?>
+                                <div class="carousel-slide">
+                                    <div class="movie-card">
+                                        <img src="<?= htmlspecialchars($movie['MediaUrl']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>" class="movie-poster">
+                                        <div class="movie-info">
+                                            <h3 class="movie-title"><?= htmlspecialchars($movie['Title']) ?></h3>
+                                            <div class="movie-meta">
+                                                <span><?= htmlspecialchars($movie['Year']) ?></span>
+                                                <span class="movie-rating"><i class="fas fa-star"></i> <?= rand(5, 9) ?>.<?= rand(0, 9) ?></span>
+                                            </div>
                                         </div>
-                                        <button class="watch-button">Watch Now</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="carousel-slide">
-                                <div class="movie-card">
-                                    <img src="https://tse3.mm.bing.net/th?id=OIP.tySXNlW9lhiLLP9n4Lg0CgHaLH&pid=Api" alt="The Marksman" class="movie-poster">
-                                    <div class="movie-info">
-                                        <h3 class="movie-title">The Marksman</h3>
-                                        <div class="movie-meta">
-                                            <span>2021</span>
-                                            <span class="movie-rating"><i class="fas fa-star"></i> 6.3</span>
-                                        </div>
-                                        <button class="watch-button">Watch Now</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-slide">
-                              <div class="movie-card">
-                                  <img src="https://tse3.mm.bing.net/th?id=OIP.tySXNlW9lhiLLP9n4Lg0CgHaLH&pid=Api" alt="The Marksman" class="movie-poster">
-                                  <div class="movie-info">
-                                      <h3 class="movie-title">The Marksman</h3>
-                                      <div class="movie-meta">
-                                          <span>2021</span>
-                                          <span class="movie-rating"><i class="fas fa-star"></i> 6.3</span>
-                                      </div>
-                                      <button class="watch-button">Watch Now</button>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="carousel-slide">
-                            <div class="movie-card">
-                                <img src="https://tse3.mm.bing.net/th?id=OIP.tySXNlW9lhiLLP9n4Lg0CgHaLH&pid=Api" alt="The Marksman" class="movie-poster">
-                                <div class="movie-info">
-                                    <h3 class="movie-title">The Marksman</h3>
-                                    <div class="movie-meta">
-                                        <span>2021</span>
-                                        <span class="movie-rating"><i class="fas fa-star"></i> 6.3</span>
-                                    </div>
-                                    <button class="watch-button">Watch Now</button>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
-                        <div class="carousel-slide">
-                          <div class="movie-card">
-                              <img src="https://tse3.mm.bing.net/th?id=OIP.tySXNlW9lhiLLP9n4Lg0CgHaLH&pid=Api" alt="The Marksman" class="movie-poster">
-                              <div class="movie-info">
-                                  <h3 class="movie-title">The Marksman</h3>
-                                  <div class="movie-meta">
-                                      <span>2021</span>
-                                      <span class="movie-rating"><i class="fas fa-star"></i> 6.3</span>
-                                  </div>
-                                  <button class="watch-button">Watch Now</button>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="carousel-slide">
-                        <div class="movie-card">
-                            <img src="https://tse3.mm.bing.net/th?id=OIP.tySXNlW9lhiLLP9n4Lg0CgHaLH&pid=Api" alt="The Marksman" class="movie-poster">
-                            <div class="movie-info">
-                                <h3 class="movie-title">The Marksman</h3>
-                                <div class="movie-meta">
-                                    <span>2021</span>
-                                    <span class="movie-rating"><i class="fas fa-star"></i> 6.3</span>
-                                </div>
-                                <button class="watch-button">Watch Now</button>
-                            </div>
-                        </div>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
                     </div>
-                    <div class="carousel-slide">
-                      <div class="movie-card">
-                          <img src="https://tse3.mm.bing.net/th?id=OIP.tySXNlW9lhiLLP9n4Lg0CgHaLH&pid=Api" alt="The Marksman" class="movie-poster">
-                          <div class="movie-info">
-                              <h3 class="movie-title">The Marksman</h3>
-                              <div class="movie-meta">
-                                  <span>2021</span>
-                                  <span class="movie-rating"><i class="fas fa-star"></i> 6.3</span>
-                              </div>
-                              <button class="watch-button">Watch Now</button>
-                          </div>
-                      </div>
-                  </div>
-                            <!-- Ajoutez d'autres slides ici -->
-                        </div>
-                    </div>
-                    <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
                 </div>
+
+                <!-- Vous pouvez ajouter d'autres carrousels ici -->
             </div>
 
-            <!-- Carrousel Films Tunisiens -->
-            <div class="carousel-section">
-                <h2 class="carousel-title">Tunisian Movies <span class="see-all">See all</span></h2>
-                <div class="carousel-container">
-                    <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
-                    <div class="carousel">
-                        <div class="carousel-track">
-                            <div class="carousel-slide">
-                                <div class="movie-card">
-                                    <img src="img/bolice.jpg" alt="Bolice" class="movie-poster">
-                                    <div class="movie-info">
-                                        <h3 class="movie-title">Bolice</h3>
-                                        <div class="movie-meta">
-                                            <span>2021</span>
-                                            <span class="movie-rating"><i class="fas fa-star"></i> 7.2</span>
-                                        </div>
-                                        <button class="watch-button">Watch Now</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-slide">
-                                <div class="movie-card">
-                                    <img src="img/dachra.jpg" alt="Dachra" class="movie-poster">
-                                    <div class="movie-info">
-                                        <h3 class="movie-title">Dachra</h3>
-                                        <div class="movie-meta">
-                                            <span>2018</span>
-                                            <span class="movie-rating"><i class="fas fa-star"></i> 6.8</span>
-                                        </div>
-                                        <button class="watch-button">Watch Now</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-slide">
-                              <div class="movie-card">
-                                  <img src="img/dachra.jpg" alt="Dachra" class="movie-poster">
-                                  <div class="movie-info">
-                                      <h3 class="movie-title">Dachra</h3>
-                                      <div class="movie-meta">
-                                          <span>2018</span>
-                                          <span class="movie-rating"><i class="fas fa-star"></i> 6.8</span>
-                                      </div>
-                                      <button class="watch-button">Watch Now</button>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="carousel-slide">
-                            <div class="movie-card">
-                                <img src="img/dachra.jpg" alt="Dachra" class="movie-poster">
-                                <div class="movie-info">
-                                    <h3 class="movie-title">Dachra</h3>
-                                    <div class="movie-meta">
-                                        <span>2018</span>
-                                        <span class="movie-rating"><i class="fas fa-star"></i> 6.8</span>
-                                    </div>
-                                    <button class="watch-button">Watch Now</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-slide">
-                          <div class="movie-card">
-                              <img src="img/dachra.jpg" alt="Dachra" class="movie-poster">
-                              <div class="movie-info">
-                                  <h3 class="movie-title">Dachra</h3>
-                                  <div class="movie-meta">
-                                      <span>2018</span>
-                                      <span class="movie-rating"><i class="fas fa-star"></i> 6.8</span>
-                                  </div>
-                                  <button class="watch-button">Watch Now</button>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="carousel-slide">
-                        <div class="movie-card">
-                            <img src="img/dachra.jpg" alt="Dachra" class="movie-poster">
-                            <div class="movie-info">
-                                <h3 class="movie-title">Dachra</h3>
-                                <div class="movie-meta">
-                                    <span>2018</span>
-                                    <span class="movie-rating"><i class="fas fa-star"></i> 6.8</span>
-                                </div>
-                                <button class="watch-button">Watch Now</button>
-                            </div>
-                        </div>
-                    </div>
-                            <!-- Ajoutez d'autres slides ici -->
-                        </div>
-                    </div>
-                    <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
+            
 
         
     </div>
