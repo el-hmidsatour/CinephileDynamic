@@ -399,7 +399,7 @@
                                 <!-- Slide 1 - Reminiscence -->
                                 <div class="carousel-slide">
                                     <div class="movie-card">
-                                        <img src="https://tse3.mm.bing.net/th?id=OIP.opA1o2AUbiKhLN8S8-DRnwHaK-&pid=Api" alt="Reminiscence" class="movie-poster">
+                                        <img src="https://drive.google.com/thumbnail?id=1tGQlvz0xjj0TCqs4dWPRwYPvI7yWvLtT&sz=w1000" alt="Reminiscence" class="movie-poster">
                                         <div class="movie-info">
                                             <h3 class="movie-title">Reminiscence</h3>
                                             <div class="movie-meta">
@@ -532,7 +532,7 @@
                                 </div>
                                 <div class="carousel-slide">
                                   <div class="movie-card">
-                                      <img src="img/dachra.jpg" alt="Dachra" class="movie-poster">
+                                      <img src="https://drive.google.com/uc?export=view&id=1tGQlvz0xjj0TCqs4dWPRwYPvI7yWvLtT" alt="Dachra" class="movie-poster">
                                       <div class="movie-info">
                                           <h3 class="movie-title">Dachra</h3>
                                           <div class="movie-meta">

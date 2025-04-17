@@ -4,12 +4,11 @@ include("../Config/database.php");
 
 try {
     // Récupérer les films depuis la base de données
-    $stmt = $cnx->query("SELECT Title, MediaUrl, Year FROM Media where type='f'");
+    $stmt = $cnx->query("SELECT Title, MediaUrl, Year FROM Media where type='s'");
     $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Erreur de base de données : " . $e->getMessage());
 }
-?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,31 +16,27 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CinePhile - Series</title>
-    <link rel="stylesheet" href="all.css">
     <link rel="stylesheet" href="navandside.css">
+    <link rel="stylesheet" href="all.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Sen:wght@400..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 </head>
 <body>
     <!-- nav-bar -->
-    <?php 
-        navbar();
-    ?>
+    <?php navbar(); ?>
     <!-- side-bar -->
-    <?php 
-        sidebar();
-    ?>
+    <?php sidebar(); ?>
     
     <div class="container">
         <div class="content-container">
             <div class="movies-header">
-                <h1>Discover Series</h1>
-                <p>Browse our extensive collection of films from all genres</p>
+                <h1>Discover series</h1>
+                <p>Browse our extensive collection of series from all genres</p>
             </div>
             
             <div class="search-filter-container">
                 <div class="search-box">
-                    <input type="text" placeholder="Search for movies...">
+                    <input type="text" placeholder="Search for series...">
                 </div>
                 <div class="filter-dropdown">
                     <select>
@@ -55,12 +50,11 @@ try {
                     </select>
                 </div>
             </div>
-          <!-- ... (contenu précédent inchangé jusqu'à après search-filter-container) ... -->
 
-          <div class="movie-carousels-container">
+            <div class="movie-carousels-container">
                 <!-- Carrousel Principal -->
                 <div class="carousel-section">
-                    <h2 class="carousel-title">All Movies <span class="see-all">See all</span></h2>
+                    <h2 class="carousel-title">All Series <span class="see-all">See all</span></h2>
                     <div class="carousel-container">
                         <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
                         <div class="carousel">
@@ -87,13 +81,8 @@ try {
 
                 <!-- Vous pouvez ajouter d'autres carrousels ici -->
             </div>
-
             
-
-        
-    </div>
-    <!-- À placer avant les balises <script> de fin -->
-        <section class="cine-team">
+            <section class="cine-team">
             <div class="team-container">
                 <h3 class="section-title">Our Team
                 </h3>
@@ -153,10 +142,10 @@ try {
                 </div>
             </div>
         </section>
-    
-    
-    <script src="app.js"></script>
-    <script src="MV_CAROUSEL.js"></script>
 
+            <script src="app.js"></script>
+            <script src="MV_CAROUSEL.js"></script>
+        </div>
+    </div>
 </body>
 </html>
