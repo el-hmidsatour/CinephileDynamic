@@ -1,57 +1,34 @@
 INSERT INTO media (Title, MediaUrl, Description, Type, Country, Year, ExpertRating) VALUES
 -- Blockbusters & Classiques
-('Inception', 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg', 'Un voleur qui s\'infiltre dans les rêves se voit confier la mission inverse : implanter une idée dans l\'esprit d\'une cible.', 'f', 'USA', '2010', 9),
-('The Dark Knight', 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg', 'Batman affronte le Joker qui sème le chaos à Gotham City.', 'f', 'USA', '2008', 10),
-('Pulp Fiction', 'https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 'Histoires entrelacées de gangsters, boxeur et malfrats à Los Angeles.', 'f', 'USA', '1994', 9),
-('Interstellar', 'https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg', 'Une équipe d\'explorateurs voyage à travers un trou de ver dans l\'espace.', 'f', 'USA', '2014', 8),
-('Fight Club', 'https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 'Un insomniaque mécontent forme un club de combat souterrain avec un vendeur de savon.', 'f', 'USA', '1999', 9),
+('Inception', 'https://drive.google.com/thumbnail?id=1tGQlvz0xjj0TCqs4dWPRwYPvI7yWvLtT&sz=w1000', 'Un voleur qui s\'infiltre dans les rêves se voit confier la mission inverse : implanter une idée dans l\'esprit d\'une cible.', 'f', 'USA', '2010', 9),
+('The Dark Knight', 'https://drive.google.com/thumbnail?id=1VhS0YKAS8gGMLE1OHL92jKbjipYci3H4&sz=w1000', 'Batman affronte le Joker qui sème le chaos à Gotham City.', 'f', 'USA', '2008', 10),
+('Pulp Fiction', 'https://drive.google.com/thumbnail?id=1FU6-RPEWwI5791fNfxlzfw2wqzH1nSsa&sz=w1000', 'Une équipe d\'explorateurs voyage à travers un trou de ver dans l\'espace.', 'f', 'USA', '2014', 8),
+('Fight Club', 'https://drive.google.com/thumbnail?id=1xYQWJro14bvwXa1a_U6_Zxie79-IwiWi&sz=w1000', 'Un insomniaque mécontent forme un club de combat souterrain avec un vendeur de savon.', 'f', 'USA', '1999', 9),
 
 -- Films récents & Oscarisés
-('Parasite', 'https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg', 'Une famille pauvre s\'infiltre dans une riche maison en se faisant passer pour des employés qualifiés.', 'f', 'South Korea', '2019', 10),
-('Dune (2021)', 'https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'Le fils d\'une famille noble tente de venger ses parents sur la planète désertique Arrakis.', 'f', 'USA', '2021', 8),
-('Everything Everywhere All at Once', 'https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMTAzMDg4NzU0._V1_.jpg', 'Une femme chinoise découvre qu\'elle doit sauver le multivers.', 'f', 'USA', '2022', 9),
-('The Batman (2022)', 'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg', 'Batman enquête sur un tueur en série à Gotham City.', 'f', 'USA', '2022', 8),
-('Nomadland', 'https://m.media-amazon.com/images/M/MV5BMDRiZWUxNmItNDU5Yy00ODNmLTk0M2ItZjQzZTA5OTJkZjkyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'Une femme âgée voyage à travers l\'Ouest américain après avoir tout perdu.', 'f', 'USA', '2021', 8),
+('Parasite', 'https://drive.google.com/thumbnail?id=1Rox0eQOYMhAtdg3GJXmYdRJgpsZiZ-dE&sz=w1000', 'Une famille pauvre s\'infiltre dans une riche maison en se faisant passer pour des employés qualifiés.', 'f', 'South Korea', '2019', 10),
+('Dune (2021)', 'https://drive.google.com/thumbnail?id=1c-nbmzy8ET5lFHVX1dEPcrOFadTbLY27&sz=w1000', 'Le fils d\'une famille noble tente de venger ses parents sur la planète désertique Arrakis.', 'f', 'USA', '2021', 8),
+('Everything Everywhere All at Once', 'https://drive.google.com/thumbnail?id=1T1GDcGuEz6cLcBo4dXTsCLiCxgezgIEa&sz=w1000', 'Une femme chinoise découvre qu\'elle doit sauver le multivers.', 'f', 'USA', '2022', 9),
+('The Batman (2022)', 'https://drive.google.com/thumbnail?id=1vw0zOhRvjV1hNynREHHmjLtYleHDOOML&sz=w1000', 'Batman enquête sur un tueur en série à Gotham City.', 'f', 'USA', '2022', 8),
+('Nomadland', 'https://drive.google.com/thumbnail?id=15joIlN6tknJYZkjbOcWkS4aMX-oDlEqN&sz=w1000', 'Une femme âgée voyage à travers l\'Ouest américain après avoir tout perdu.', 'f', 'USA', '2021', 8),
 
 -- Animations & Famille
-('Spider-Man: Across the Spider-Verse', 'https://m.media-amazon.com/images/M/MV5BMzI0NmVkMjEtYmY4MS00ZDMxLTlkZmEtMzU4MDQxYTMzMjU2XkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_.jpg', 'Miles Morales explore le multivers avec d\'autres Spider-People.', 'f', 'USA', '2023', 9),
-('The Super Mario Bros. Movie', 'https://m.media-amazon.com/images/M/MV5BOTJhNzlmNzctNTU5Yy00N2YwLThhMjQtZDM0YjEzN2Y0ZjNhXkEyXkFqcGdeQXVyMTEwMTQ4MzU5._V1_.jpg', 'Mario et Luigi doivent sauver le Royaume Champignon de Bowser.', 'f', 'USA', '2023', 7),
+('Spider-Man: Across the Spider-Verse', 'https://drive.google.com/thumbnail?id=1f2FyflAwc66i4FGClSY3AhokgIrkSD5l&sz=w1000', 'Miles Morales explore le multivers avec d\'autres Spider-People.', 'f', 'USA', '2023', 9),
+('The Super Mario Bros. Movie', 'https://drive.google.com/thumbnail?id=13yWj2gJFrlCWoyGbus3LNhNxR23ATTL1&sz=w1000', 'Mario et Luigi doivent sauver le Royaume Champignon de Bowser.', 'f', 'USA', '2023', 7),
 ('Encanto', 'https://m.media-amazon.com/images/M/MV5BNjE5NzA4ZDctOTJkZi00NzM0LTkwOTYtMDI4MmNkMzIxODhkXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg', 'Une jeune Colombienne doit sauver la magie de sa famille.', 'f', 'USA', '2021', 8),
-('Puss in Boots: The Last Wish', 'https://m.media-amazon.com/images/M/MV5BNjMyMDBjMGUtYTE2Zi00NjNjLTg5ODAtNTAzZGM5ZTdhN2E5XkEyXkFqcGdeQXVyMTY5Nzc4MDY@._V1_.jpg', 'Le Chat Potté découvre qu\'il a épuisé huit de ses neuf vies.', 'f', 'USA', '2022', 8),
 
 -- SF & Fantastique
-('Blade Runner 2049', 'https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg', 'Un nouveau blade runner découvre un secret qui pourrait plonger la société dans le chaos.', 'f', 'USA', '2017', 9),
-('The Matrix', 'https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg', 'Un hacker découvre que la réalité est une simulation créée par des machines intelligentes.', 'f', 'USA', '1999', 10),
-('Avatar: The Way of Water', 'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg', 'Jake Sully et sa famille luttent pour protéger Pandora.', 'f', 'USA', '2022', 8),
+('Blade Runner 2049', 'https://drive.google.com/thumbnail?id=10eL87G7GyhaKkcEogOeRD8urPKpNKR-w&sz=w1000', 'Un nouveau blade runner découvre un secret qui pourrait plonger la société dans le chaos.', 'f', 'USA', '2017', 9),
+('The Matrix', 'https://drive.google.com/thumbnail?id=1vn5qIk9F4GmrilH_A-4XtFo8924ydJnX&sz=w1000', 'Un hacker découvre que la réalité est une simulation créée par des machines intelligentes.', 'f', 'USA', '1999', 10),
+('Avatar: The Way of Water', 'https://drive.google.com/thumbnail?id=1iCdUsGVbVWL_YgDcl5SrWgzIr817B_e4&sz=w1000', 'Jake Sully et sa famille luttent pour protéger Pandora.', 'f', 'USA', '2022', 8),
 
 -- Drames & Thrillers
-('Joker', 'https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'Un comédien raté sombre dans la folie et le crime à Gotham City.', 'f', 'USA', '2019', 9),
-('The Shawshank Redemption', 'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg', 'Un banquier condamné à perpétuité trouve rédemption en prison.', 'f', 'USA', '1994', 10),
-('The Godfather', 'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 'Le patriarche d\'une famille mafieuse transmet le contrôle à son fils réticent.', 'f', 'USA', '1972', 10);
+('Joker', 'https://drive.google.com/thumbnail?id=1XbhlpmWRzTivuSmNsr_RUaggqYxFER9T&sz=w1000', 'Un comédien raté sombre dans la folie et le crime à Gotham City.', 'f', 'USA', '2019', 9),
+('The Shawshank Redemption', 'https://drive.google.com/thumbnail?id=1C4Q59LG6DSZCH8HBelVocUEn6xWZ5i3C&sz=w1000', 'Un bancier condamné à perpétuité trouve rédemption en prison.', 'f', 'USA', '1994', 10),
+('The Godfather', 'https://drive.google.com/thumbnail?id=1Wwt6Yje3VhxRiqO0MDQxQPGSOePhYqhJ&sz=w1000', 'Le patriarche d\'une famille mafieuse transmet le contrôle à son fils réticent.', 'f', 'USA', '1972', 10),
 
-
-
-
-
-
-             test
-
-
-    INSERT INTO media (Title, MediaUrl, Description, Type, Country, Year, ExpertRating) VALUES
--- Tunisian Movies
-('Halfaouine: Boy of the Terraces', 'https://drive.google.com/thumbnail?id=12LEEMkw5cmWpDhy761et6cfr9BY3mo-G&sz=w1000', 'A coming-of-age story about a boy navigating adolescence in Tunis.', 'f', 'Tunisia', '1990', 8.2),
-('As I Open My Eyes', 'https://drive.google.com/thumbnail?id=1BgWjEbNgnTFbkygI-tVMZVddd0bQ88Z8&sz=w1000', 'A young woman explores her passion for music amidst political tensions.', 'f', 'Tunisia', '2015', 8.0),
-('Hedi', 'https://drive.google.com/thumbnail?id=1d0kSHL3KN5IKHCBdcvzn2RnrLPImxP1w&sz=w1000', 'A man torn between tradition and personal freedom faces life-changing decisions.', 'f', 'Tunisia', '2016', 7.8),
-('A Son (Un Fils)', 'https://drive.google.com/thumbnail?id=1B9TyLJjAmuM4phoOc959VIHEHskI9Cuc&sz=w1000', 'A family's life unravels after a tragic event reveals hidden secrets.', 'f', 'Tunisia', '2019', 8.5),
-('Dachra', 'https://drive.google.com/thumbnail?id=1P5SUr-eJbBDf74Ti3fuaLdx8g6kVEIPY&sz=w1000', 'Three journalism students investigate a mysterious village with dark secrets.', 'f', 'Tunisia', '2018', 7.4),
-('Fatma 75', 'https://drive.google.com/thumbnail?id=1azQ2Wdeg18SgkUVskfTfRiMVLX87IXK9&sz=w1000', 'A documentary-style film exploring the role of women in Tunisian society.', 'f', 'Tunisia', '1975', 7.2),
-('The Silences of the Palace', 'https://drive.google.com/thumbnail?id=1fE0NDnsCAnfypywD2BfWuULjnDOYE00i&sz=w1000', 'A woman reflects on her mother's life as a servant in a royal palace.', 'f', 'Tunisia', '1994', 8.1),
-('Bezness', 'https://drive.google.com/thumbnail?id=1ykX-ohe2U9U2M7trU7VuYheUoHfMxZSS&sz=w1000', 'A look into the lives of young men engaging in relationships with tourists.', 'f', 'Tunisia', '1992', 7.6),
-('Bent Familia', 'https://drive.google.com/thumbnail?id=18qvEmGdK2TV3v2VtcstWa4yyVwtzthhx&sz=w1000', 'Three women in Tunis navigate friendship and societal expectations.', 'f', 'Tunisia', '1997', 7.8),
-('Satin Rouge', 'https://drive.google.com/thumbnail?id=1d46AXTlXDVRyPm5JV7vFhuqTw7NPNksZ&sz=w1000', 'A widow discovers a new sense of freedom through belly dancing.', 'f', 'Tunisia', '2002', 7.3),
-('Bab'Aziz: The Prince Who Contemplated His Soul', 'https://drive.google.com/thumbnail?id=1iuFHIs6qVO3C5rBLY-OqxE87h18ieRGB&sz=w1000', 'A mystical journey of a blind dervish and his granddaughter.', 'f', 'Tunisia', '2005', 8.0),
-('Making Of', 'https://drive.google.com/thumbnail?id=1gbTODqhV01-Wih-biCao5Jq90RzDOT_Z&sz=w1000', 'A young man becomes involved in extremist activities, leading to tragic consequences.', 'f', 'Tunisia', '2006', 7.9),
-('The Season of Men', 'https://drive.google.com/thumbnail?id=1oTzQgNvscKEWaDWcTHWUkyAiqnWNzION&sz=w1000', 'A woman's struggle for independence in a patriarchal society.', 'f', 'Tunisia', '2000', 7.6),
-('Bedwin Hacker', 'https://drive.google.com/thumbnail?id=1vha5LcM5PQ88ZkzIkbWFs6EKwSzwYrPM&sz=w1000', 'A female hacker challenges Western perceptions of Arab women.', 'f', 'Tunisia', '2003', 7.1),
-('Bastardo', 'https://drive.google.com/thumbnail?id=18TVH4S6zVcvJdyTZzwOQ5qGtJLWHc0c6&sz=w1000', 'A man gains power in his neighborhood after installing a mobile antenna.', 'f', 'Tunisia', '2013', 7.5),
-('Goha', 'https://drive.google.com/thumbnail?id=1gYZ98sPoqOW8JCLCqojLSgxr9METRAT4&sz=w1000', 'A comedic tale of a young man navigating love and tradition.', 'f', 'Tunisia', '1958', 7.4);
+-- Films du Moyen-Orient
+('Capharnaüm', 'https://drive.google.com/thumbnail?id=1tRHps3x7Q56c6ifty653dVUJVFunlfY2&sz=w1000', 'Un garçon libanais poursuit ses parents en justice pour l\'avoir mis au monde.', 'f', 'Liban', '2018', 9),
+('Wadjda', 'https://drive.google.com/thumbnail?id=1P48B4PmA9rXgAujFhn7l1vJmm0fDH3Bv&sz=w1000', 'Une jeune fille saoudienne défie les normes pour acheter un vélo.', 'f', 'Arabie Saoudite', '2012', 8),
+('Theeb', 'https://drive.google.com/thumbnail?id=1CwRrRJ51AYH3iT1gLCfE7LozRwaWBBuD&sz=w1000', 'Un jeune bédouin navigue dans le désert pendant la Première Guerre mondiale.', 'f', 'Jordanie', '2014', 8),
+('Maraya', 'https://drive.google.com/thumbnail?id=1f6jlsASE0VUyV50p9fvmdqnh6wjILZUg&sz=w1000', 'Série syrienne satirique abordant des thèmes sociaux et politiques.', 's', 'Syrie', '1982', 8);
