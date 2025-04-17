@@ -46,3 +46,5 @@ INSERT INTO media (Title, MediaUrl, Description, Type, Country, Year, ExpertRati
 ('Wadjda', 'https://drive.google.com/thumbnail?id=1P48B4PmA9rXgAujFhn7l1vJmm0fDH3Bv&sz=w1000', 'Une jeune fille saoudienne défie les normes pour acheter un vélo.', 'f', 'Arabie Saoudite', '2012', 8),
 ('Theeb', 'https://drive.google.com/thumbnail?id=1CwRrRJ51AYH3iT1gLCfE7LozRwaWBBuD&sz=w1000', 'Un jeune bédouin navigue dans le désert pendant la Première Guerre mondiale.', 'f', 'Jordanie', '2014', 8),
 ('Maraya', 'https://drive.google.com/thumbnail?id=1f6jlsASE0VUyV50p9fvmdqnh6wjILZUg&sz=w1000', 'Série syrienne satirique abordant des thèmes sociaux et politiques.', 's', 'Syrie', '1982', 8);
+
+https://drive.google.com/thumbnail?id=1tGQlvz0xjj0TCqs4dWPRwYPvI7yWvLtT&sz=w1000
