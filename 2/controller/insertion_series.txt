@@ -11,3 +11,38 @@
     ("Al Hayba", "https://www.themoviedb.org/tv/72005-al-hayba", "Un chef de clan libanais confronté à des défis familiaux et criminels.", "s", "Liban", "2017", 8)
 ]
 --Eya Lassoued voici les informations completes justetu accede au lien et tu telecharge l'image et l'inserer dans le drive
+
+INSERT INTO media (Title, MediaUrl, Description, Type, Country, Year, ExpertRating) VALUES
+-- Blockbusters & Classiques
+('Inception', 'https://drive.google.com/thumbnail?id=1tGQlvz0xjj0TCqs4dWPRwYPvI7yWvLtT&sz=w1000', 'Un voleur qui s\'infiltre dans les rêves se voit confier la mission inverse : implanter une idée dans l\'esprit d\'une cible.', 'f', 'USA', '2010', 9),
+('The Dark Knight', 'https://drive.google.com/thumbnail?id=1VhS0YKAS8gGMLE1OHL92jKbjipYci3H4&sz=w1000', 'Batman affronte le Joker qui sème le chaos à Gotham City.', 'f', 'USA', '2008', 10),
+('Pulp Fiction', 'https://drive.google.com/thumbnail?id=1FU6-RPEWwI5791fNfxlzfw2wqzH1nSsa&sz=w1000', 'Une équipe d\'explorateurs voyage à travers un trou de ver dans l\'espace.', 'f', 'USA', '2014', 8),
+('Fight Club', 'https://drive.google.com/thumbnail?id=1xYQWJro14bvwXa1a_U6_Zxie79-IwiWi&sz=w1000', 'Un insomniaque mécontent forme un club de combat souterrain avec un vendeur de savon.', 'f', 'USA', '1999', 9),
+
+-- Films récents & Oscarisés
+('Parasite', 'https://drive.google.com/thumbnail?id=1Rox0eQOYMhAtdg3GJXmYdRJgpsZiZ-dE&sz=w1000', 'Une famille pauvre s\'infiltre dans une riche maison en se faisant passer pour des employés qualifiés.', 'f', 'South Korea', '2019', 10),
+('Dune (2021)', 'https://drive.google.com/thumbnail?id=1c-nbmzy8ET5lFHVX1dEPcrOFadTbLY27&sz=w1000', 'Le fils d\'une famille noble tente de venger ses parents sur la planète désertique Arrakis.', 'f', 'USA', '2021', 8),
+('Everything Everywhere All at Once', 'https://drive.google.com/thumbnail?id=1T1GDcGuEz6cLcBo4dXTsCLiCxgezgIEa&sz=w1000', 'Une femme chinoise découvre qu\'elle doit sauver le multivers.', 'f', 'USA', '2022', 9),
+('The Batman (2022)', 'https://drive.google.com/thumbnail?id=1vw0zOhRvjV1hNynREHHmjLtYleHDOOML&sz=w1000', 'Batman enquête sur un tueur en série à Gotham City.', 'f', 'USA', '2022', 8),
+('Nomadland', 'https://drive.google.com/thumbnail?id=15joIlN6tknJYZkjbOcWkS4aMX-oDlEqN&sz=w1000', 'Une femme âgée voyage à travers l\'Ouest américain après avoir tout perdu.', 'f', 'USA', '2021', 8),
+
+-- Animations & Famille
+('Spider-Man: Across the Spider-Verse', 'https://drive.google.com/thumbnail?id=1f2FyflAwc66i4FGClSY3AhokgIrkSD5l&sz=w1000', 'Miles Morales explore le multivers avec d\'autres Spider-People.', 'f', 'USA', '2023', 9),
+('The Super Mario Bros. Movie', 'https://drive.google.com/thumbnail?id=13yWj2gJFrlCWoyGbus3LNhNxR23ATTL1&sz=w1000', 'Mario et Luigi doivent sauver le Royaume Champignon de Bowser.', 'f', 'USA', '2023', 7),
+('Encanto', 'https://m.media-amazon.com/images/M/MV5BNjE5NzA4ZDctOTJkZi00NzM0LTkwOTYtMDI4MmNkMzIxODhkXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg', 'Une jeune Colombienne doit sauver la magie de sa famille.', 'f', 'USA', '2021', 8),
+
+-- SF & Fantastique
+('Blade Runner 2049', 'https://drive.google.com/thumbnail?id=10eL87G7GyhaKkcEogOeRD8urPKpNKR-w&sz=w1000', 'Un nouveau blade runner découvre un secret qui pourrait plonger la société dans le chaos.', 'f', 'USA', '2017', 9),
+('The Matrix', 'https://drive.google.com/thumbnail?id=1vn5qIk9F4GmrilH_A-4XtFo8924ydJnX&sz=w1000', 'Un hacker découvre que la réalité est une simulation créée par des machines intelligentes.', 'f', 'USA', '1999', 10),
+('Avatar: The Way of Water', 'https://drive.google.com/thumbnail?id=1iCdUsGVbVWL_YgDcl5SrWgzIr817B_e4&sz=w1000', 'Jake Sully et sa famille luttent pour protéger Pandora.', 'f', 'USA', '2022', 8),
+
+-- Drames & Thrillers
+('Joker', 'https://drive.google.com/thumbnail?id=1XbhlpmWRzTivuSmNsr_RUaggqYxFER9T&sz=w1000', 'Un comédien raté sombre dans la folie et le crime à Gotham City.', 'f', 'USA', '2019', 9),
+('The Shawshank Redemption', 'https://drive.google.com/thumbnail?id=1C4Q59LG6DSZCH8HBelVocUEn6xWZ5i3C&sz=w1000', 'Un bancier condamné à perpétuité trouve rédemption en prison.', 'f', 'USA', '1994', 10),
+('The Godfather', 'https://drive.google.com/thumbnail?id=1Wwt6Yje3VhxRiqO0MDQxQPGSOePhYqhJ&sz=w1000', 'Le patriarche d\'une famille mafieuse transmet le contrôle à son fils réticent.', 'f', 'USA', '1972', 10),
+
+-- Films du Moyen-Orient
+('Capharnaüm', 'https://drive.google.com/thumbnail?id=1tRHps3x7Q56c6ifty653dVUJVFunlfY2&sz=w1000', 'Un garçon libanais poursuit ses parents en justice pour l\'avoir mis au monde.', 'f', 'Liban', '2018', 9),
+('Wadjda', 'https://drive.google.com/thumbnail?id=1P48B4PmA9rXgAujFhn7l1vJmm0fDH3Bv&sz=w1000', 'Une jeune fille saoudienne défie les normes pour acheter un vélo.', 'f', 'Arabie Saoudite', '2012', 8),
+('Theeb', 'https://drive.google.com/thumbnail?id=1CwRrRJ51AYH3iT1gLCfE7LozRwaWBBuD&sz=w1000', 'Un jeune bédouin navigue dans le désert pendant la Première Guerre mondiale.', 'f', 'Jordanie', '2014', 8),
+('Maraya', 'https://drive.google.com/thumbnail?id=1f6jlsASE0VUyV50p9fvmdqnh6wjILZUg&sz=w1000', 'Série syrienne satirique abordant des thèmes sociaux et politiques.', 's', 'Syrie', '1982', 8);
