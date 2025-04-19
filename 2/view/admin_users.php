@@ -2,7 +2,7 @@
 // Connexion à la base de données
 require_once("../Config/database.php");
 include("../controller/traitement.php");
-
+session_start();
 // Récupération des utilisateurs
 $users = [];
 try {
@@ -167,33 +167,24 @@ if (isset($_GET['edit'])) {
     <div class="main-content">
         <!-- Header -->
         <div class="header">
-            <h4>Gestion des Utilisateurs</h4>
-            <div class="user-menu">
-                <img src="https://i.pravatar.cc/50" alt="Admin" class="user-img">
-                <div>
-                    <h6 class="mb-0">Admin Aziz</h6>
-                    <small>Administrateur</small>
-                </div>
-                <button id="logoutBtn" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> Déconnexion
-                </button>
-            </div>
+    <h4>Gestion des Utilisateurs</h4>
+    <?php if (isset($_SESSION['user'])): ?>
+    <div class="user-menu">
+        <img src="<?= htmlspecialchars($_SESSION['user']['picture'] ?? 'bolice.png') ?>" 
+             alt="<?= htmlspecialchars($_SESSION['user']['name']) ?>" 
+             class="user-img">
+        <div>
+            <h6 class="mb-0"><?= htmlspecialchars($_SESSION['user']['name']) ?></h6>
+            <small><?= htmlspecialchars(ucfirst($_SESSION['user']['role'])) ?></small>
         </div>
-
-        <!-- Messages d'erreur/succès -->
-        <?php if (isset($error)): ?>
-            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
-        <?php elseif (isset($_GET['success'])): ?>
-            <div class="alert alert-success">
-                <?php 
-                switch($_GET['success']) {
-                    case 'add': echo "Utilisateur ajouté avec succès"; break;
-                    case 'edit': echo "Utilisateur modifié avec succès"; break;
-                    case 'delete': echo "Utilisateur supprimé avec succès"; break;
-                }
-                ?>
-            </div>
-        <?php endif; ?>
+        <form action="logout.php" method="post" class="logout-form">
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </button>
+        </form>
+    </div>
+    <?php endif; ?>
+</div>
 
         <!-- Search and Actions Bar -->
         <div class="card mb-4">

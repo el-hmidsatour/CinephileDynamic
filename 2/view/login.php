@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include("navandside.php");
 include("../Config/database.php");
@@ -6,27 +6,46 @@ include("../Config/database.php");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    if ($email === 'admin@gmail.com' && $password==='cinephile') {
-        header("Location: admin_users.php");
+    
+    if ($email === 'admin@gmail.com') {
+        $stmt = $cnx->prepare("SELECT * FROM admins WHERE AdminEmail = ?");
+        $stmt->execute([$email]);
+        $admin = $stmt->fetch();
+        
+        if ($admin['AdminPassword']==md5('cinephile')) {
+            $_SESSION['user'] = [
+                'id' => $admin['AdminId'],
+                'name' => $admin['AdminName'],
+                'email' => $admin['AdminEmail'],
+                'role' => 'admin',
+                'picture' => 'https://i.pravatar.cc/50'
+            ];
+            header("Location: admin_users.php");
+            exit();
+        }
     }
-    $stmt = $cnx->prepare("SELECT * FROM Users WHERE Email = ?");
+    
+    $stmt = $cnx->prepare(query: "SELECT * FROM Users WHERE Email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
-    if (isset($user)) {
-        if($user['Password'] !== $password) {
-        $_SESSION['user'] = [
-            'id' => $user['UserId'],
-            'name' => $user['FirstName'] . ' ' . $user['LastName'],
-            'email' => $user['Email'],
-            'role' => $user['Role'],
-            'picture' => $user['PictureUrl'] ?? 'https://i.pravatar.cc/50'
-        ];
-        header("Location: home.php");
-        exit();
-    } else {
-        echo "<p style='color:red;text-align:center'>Email ou mot de passe incorrect</p>";
+    
+    if ($user) {
+        if ($user['Password'] === $password) {
+            $_SESSION['user'] = [
+                'id' => $user['UserId'],
+                'name' => $user['FirstName'] . ' ' . $user['LastName'],
+                'email' => $user['Email'],
+                'role' => $user['Role'],
+                'picture' => $user['PictureUrl'] ?? 'https://i.pravatar.cc/50'
+            ];
+            header("Location: home.php");
+            exit();
+        }
     }
-}}
+    
+    // Message d'erreur générique (pour sécurité)
+    echo "<p style='color:red;text-align:center'>Identifiants incorrects</p>";
+}
 ?>
 
 
