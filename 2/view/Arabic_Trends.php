@@ -4,7 +4,7 @@ include("../Config/database.php");
 
 try {
     // Récupérer les films depuis la base de données
-    $stmt = $cnx->query("SELECT Title, MediaUrl, Year FROM Media where type='f'");
+    $stmt = $cnx->query("SELECT Id,Title, MediaUrl, Year FROM Media where country like '%tunisia%'");
     $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Erreur de base de données : " . $e->getMessage());
@@ -16,30 +16,27 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CinePhile - Arabic Trends</title>
-    <link rel="stylesheet" href="all.css">
     <link rel="stylesheet" href="navandside.css">
+    <link rel="stylesheet" href="all.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Sen:wght@400..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 </head>
 <body>
     <!-- nav-bar -->
-    <?php 
-        navbar();
-    ?>
+    <?php navbar(); ?>
     <!-- side-bar -->
-    <?php 
-        sidebar();
-    ?>
+    <?php sidebar(); ?>
+    
     <div class="container">
         <div class="content-container">
             <div class="movies-header">
                 <h1>Discover Arabic Trends</h1>
-                <p>Browse our extensive collection of films from all genres</p>
+                <p>Browse our extensive collection of Arabic Trends</p>
             </div>
             
             <div class="search-filter-container">
                 <div class="search-box">
-                    <input type="text" placeholder="Search for movies...">
+                    <input type="text" placeholder="Search for Arabic Trends...">
                 </div>
                 <div class="filter-dropdown">
                     <select>
@@ -53,9 +50,8 @@ try {
                     </select>
                 </div>
             </div>
-          <!-- ... (contenu précédent inchangé jusqu'à après search-filter-container) ... -->
 
-          <div class="movie-carousels-container">
+            <div class="movie-carousels-container">
                 <!-- Carrousel Principal -->
                 <div class="carousel-section">
                     <h2 class="carousel-title">All Movies <span class="see-all">See all</span></h2>
@@ -64,18 +60,23 @@ try {
                         <div class="carousel">
                             <div class="carousel-track">
                                 <?php foreach ($movies as $movie): ?>
-                                <div class="carousel-slide">
-                                    <div class="movie-card">
-                                        <img src="<?= htmlspecialchars($movie['MediaUrl']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>" class="movie-poster">
-                                        <div class="movie-info">
-                                            <h3 class="movie-title"><?= htmlspecialchars($movie['Title']) ?></h3>
-                                            <div class="movie-meta">
-                                                <span><?= htmlspecialchars($movie['Year']) ?></span>
-                                                <span class="movie-rating"><i class="fas fa-star"></i> <?= rand(5, 9) ?>.<?= rand(0, 9) ?></span>
-                                            </div>
-                                        </div>
+                                    <div class="carousel-slide">
+                                        <form method="post" action="contenu.php">
+                                            <input type="hidden" name="id" value="<?= htmlspecialchars($movie['Id']) ?>">
+                                            <button type="submit" class="movie-card-button">
+                                                <div class="movie-card">
+                                                    <img src="<?= htmlspecialchars($movie['MediaUrl']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>" class="movie-poster">
+                                                    <div class="movie-info">
+                                                        <h3 class="movie-title"><?= htmlspecialchars($movie['Title']) ?></h3>
+                                                        <div class="movie-meta">
+                                                            <span><?= htmlspecialchars($movie['Year']) ?></span>
+                                                            <span class="movie-rating"><i class="fas fa-star"></i> <?= rand(5, 9) ?>.<?= rand(0, 9) ?></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        </form>
                                     </div>
-                                </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -85,8 +86,8 @@ try {
 
                 <!-- Vous pouvez ajouter d'autres carrousels ici -->
             </div>
-    <!-- À placer avant les balises <script> de fin -->
-        <section class="cine-team">
+            
+            <section class="cine-team">
             <div class="team-container">
                 <h3 class="section-title">Our Team
                 </h3>
@@ -146,9 +147,10 @@ try {
                 </div>
             </div>
         </section>
-    
-    <script src="app.js"></script>
-    <script src="MV_CAROUSEL.js"></script>
 
+            <script src="app.js"></script>
+            <script src="MV_CAROUSEL.js"></script>
+        </div>
+    </div>
 </body>
 </html>

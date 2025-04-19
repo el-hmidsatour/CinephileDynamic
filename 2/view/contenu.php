@@ -1,9 +1,10 @@
 <?php
 // Connexion à la base de données
 require_once("../Config/database.php");
+include("navandside.php");
 
 // Récupérer l'ID du film depuis l'URL
-$movieId = $_GET['id'] ?? 1;
+$movieId = $_POST['id'] ?? 1;
 
 // Requête pour récupérer les détails du film
 try {
@@ -17,7 +18,7 @@ try {
     $actorsStmt = $cnx->prepare("
         SELECT a.* FROM actors a
         JOIN acted act ON a.ActorId = act.ActorId
-        WHERE act.Media = ?
+        WHERE act.MediaId = ?
         LIMIT 5
     ");
     $actorsStmt->execute([$movieId]);
@@ -50,7 +51,7 @@ try {
             </div>
             <div class="menu-container">
                 <ul class="menu-list">
-                    <a href="index.php">Home</a>
+                    <a href="home.php">Home</a>
                     <a href="Movie.php">Movies</a>
                     <a href="Series.php">Series</a>
                     <a href="Popular.php">Popular</a>
@@ -145,7 +146,9 @@ try {
                 <!-- Movie Content Section -->
                 <div class="movie-content-section">
                     <div class="movie-poster-container">
-                        <img src="<?= htmlspecialchars($movie['MediaUrl']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>" class="movie-poster">
+                        <div class="contenu-movie-container">
+                            <img src="<?= htmlspecialchars($movie['MediaUrl']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>" class="movie-poster">
+                        </div>
                     </div>
                     
                     <div class="movie-description-container">

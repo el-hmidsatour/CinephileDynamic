@@ -135,7 +135,7 @@ if (isset($_GET['edit'])) {
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="Media.php" class="sidebar-link">
+                <a href="ad_films.php" class="sidebar-link">
                     <i class="fas fa-video"></i>
                     <span>Media</span>
                 </a>

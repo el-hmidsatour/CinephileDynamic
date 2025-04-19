@@ -1,10 +1,10 @@
 <?php
   include("navandside.php");
   include("../config/database.php");
-  include("../controller/methods.php");
+  include("../controller/traitement.php");
   if(!empty($_POST))
   {
-    if(isset($_POST['first_name'],$_POST['first_name'],$_POST['phone'],$_POST['email'],$_POST['password']))
+    if(isset($_POST['first_name'],$_POST['last_name'],$_POST['phone'],$_POST['email'],$_POST['password']))
     {
       AddUser($cnx,$_POST);
     }

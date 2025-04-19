@@ -4,7 +4,7 @@ include("../Config/database.php");
 
 try {
     // Récupérer les films depuis la base de données
-    $stmt = $cnx->query("SELECT Title, MediaUrl, Year FROM Media where type='f'");
+    $stmt = $cnx->query("SELECT Id,Title, MediaUrl, Year FROM Media where type='f'");
     $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Erreur de base de données : " . $e->getMessage());
@@ -60,18 +60,23 @@ try {
                         <div class="carousel">
                             <div class="carousel-track">
                                 <?php foreach ($movies as $movie): ?>
-                                <div class="carousel-slide">
-                                    <div class="movie-card">
-                                        <img src="<?= htmlspecialchars($movie['MediaUrl']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>" class="movie-poster">
-                                        <div class="movie-info">
-                                            <h3 class="movie-title"><?= htmlspecialchars($movie['Title']) ?></h3>
-                                            <div class="movie-meta">
-                                                <span><?= htmlspecialchars($movie['Year']) ?></span>
-                                                <span class="movie-rating"><i class="fas fa-star"></i> <?= rand(5, 9) ?>.<?= rand(0, 9) ?></span>
-                                            </div>
-                                        </div>
+                                    <div class="carousel-slide">
+                                        <form method="post" action="contenu.php">
+                                            <input type="hidden" name="id" value="<?= htmlspecialchars($movie['Id']) ?>">
+                                            <button type="submit" class="movie-card-button">
+                                                <div class="movie-card">
+                                                    <img src="<?= htmlspecialchars($movie['MediaUrl']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>" class="movie-poster">
+                                                    <div class="movie-info">
+                                                        <h3 class="movie-title"><?= htmlspecialchars($movie['Title']) ?></h3>
+                                                        <div class="movie-meta">
+                                                            <span><?= htmlspecialchars($movie['Year']) ?></span>
+                                                            <span class="movie-rating"><i class="fas fa-star"></i> <?= rand(5, 9) ?>.<?= rand(0, 9) ?></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        </form>
                                     </div>
-                                </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>

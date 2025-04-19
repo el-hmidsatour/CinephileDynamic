@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
     
+    
     if ($email === 'admin@gmail.com') {
         $stmt = $cnx->prepare("SELECT * FROM admins WHERE AdminEmail = ?");
         $stmt->execute([$email]);
@@ -20,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 'role' => 'admin',
                 'picture' => 'https://i.pravatar.cc/50'
             ];
+            $_SESSION['test']=1;
             header("Location: admin_users.php");
             exit();
         }
@@ -30,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $user = $stmt->fetch();
     
     if ($user) {
-        if ($user['Password'] === $password) {
+        if ($user['Password'] === MD5($password)) {
             $_SESSION['user'] = [
                 'id' => $user['UserId'],
                 'name' => $user['FirstName'] . ' ' . $user['LastName'],
@@ -38,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 'role' => $user['Role'],
                 'picture' => $user['PictureUrl'] ?? 'https://i.pravatar.cc/50'
             ];
+            $_SESSION['test']=0;
             header("Location: home.php");
             exit();
         }

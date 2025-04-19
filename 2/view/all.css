@@ -127,6 +127,11 @@
     object-fit: cover;
     transition: opacity 0.3s;
   }
+  .contenu-movie-container img
+  {
+    all:unset;
+    height: 500px;
+  }
   
   .movie-card:hover .movie-poster {
     opacity: 0.8;
@@ -1780,7 +1785,12 @@ a.watch-button {
   text-decoration: none;
   display: inline-block;
 }
-
+.movie-card-button {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
 
 
 /* Responsive Styles */

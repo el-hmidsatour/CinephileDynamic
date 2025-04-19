@@ -4,8 +4,8 @@ include("../config/database.php");
 function AddUser($cnx, $data) {
     $mdpHash = md5($data['password']);
     $req = "INSERT INTO users (FirstName, LastName, Number, Email, Password, PictureUrl) 
-            VALUES ('".$data['FirstName']."', '".$data['LastName']."', '".$data['Number']."', 
-                   '".$data['Email']."', '".$mdpHash."', '".($data['PictureUrl'] ?? 'default.jpg')."')";
+            VALUES ('".$data['first_name']."', '".$data['last_name']."', '".$data['phone']."', 
+                   '".$data['email']."', '".$mdpHash."', '".($data['PictureUrl'] ?? 'default.jpg')."')";
     $res = $cnx->query($req);
     return $res ? true : false;
 }
