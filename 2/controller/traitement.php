@@ -24,7 +24,7 @@ function searchUsers($cnx, $search) {
     $res = $cnx->query($req);
     return $res->fetchAll();
 }
-
+/*
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'add') {
         if (AddUser($cnx, $_POST)) {
@@ -40,7 +40,7 @@ $Users = isset($_GET['search']) && !empty($_GET['search'])
     ? searchUsers($cnx, $_GET['search']) 
     : getAllUsers($cnx);
 
-
+*/
 /**
  * INSECURE - Adds user with MD5 password hashing (for legacy systems only)
  * @param PDO $db Database connection
