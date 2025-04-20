@@ -34,22 +34,25 @@ try {
                 <p>Browse our extensive collection of series from all genres</p>
             </div>
             
-            <div class="search-filter-container">
-                <div class="search-box">
-                    <input type="text" placeholder="Search for series...">
+            <form action="search.php" method="get" id="searchForm">
+                <div class="search-filter-container">
+                    <div class="search-box">
+                        <input type="text" name="searchterm" placeholder="Search for movies..." id="searchInput">
+                        <input type="hidden" name="type" value="s">
+                    </div>
+                    <div class="filter-dropdown">
+                        <select name="genre">
+                            <option value="">All Genres</option>
+                            <option value="action">Action</option>
+                            <option value="comedy">Comedy</option>
+                            <option value="drama">Drama</option>
+                            <option value="horror">Horror</option>
+                            <option value="sci-fi">Sci-Fi</option>
+                            <option value="tunisian">Tunisian</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="filter-dropdown">
-                    <select>
-                        <option value="">All Genres</option>
-                        <option value="action">Action</option>
-                        <option value="comedy">Comedy</option>
-                        <option value="drama">Drama</option>
-                        <option value="horror">Horror</option>
-                        <option value="sci-fi">Sci-Fi</option>
-                        <option value="tunisian">Tunisian</option>
-                    </select>
-                </div>
-            </div>
+            </form>
 
             <div class="movie-carousels-container">
                 <!-- Carrousel Principal -->
