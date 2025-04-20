@@ -44,76 +44,10 @@ try {
 
 <body>
     <!-- nav-bar -->
-    <div class="navbar">
-        <div class="navbar-container">
-            <div class="logo-container">
-                <h1 class="logo">CinePhile</h1>
-            </div>
-            <div class="menu-container">
-                <ul class="menu-list">
-                    <a href="home.php">Home</a>
-                    <a href="Movie.php">Movies</a>
-                    <a href="Series.php">Series</a>
-                    <a href="Popular.php">Popular</a>
-                    <a href="Arabic_Trends.php">Arabic Trends</a>
-                </ul>
-            </div>
-            <div class="navbar-profile-section">
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <div class="user-profile">
-                        <div class="profile-trigger">
-                            <div class="avatar-wrapper">
-                                <img class="profile-avatar" src="<?= htmlspecialchars($_SESSION['picture_url'] ?? 'https://i.pravatar.cc/50') ?>" alt="Profile">
-                                <div class="status-indicator"></div>
-                            </div>
-                            <div class="profile-badge">
-                                <span class="username"><?= htmlspecialchars($_SESSION['first_name'] ?? 'Utilisateur') ?></span>
-                                <i class="fas fa-chevron-down dropdown-arrow"></i>
-                            </div>
-                        </div>
-                        <div class="profile-dropdown-menu">
-                            <div class="dropdown-header">
-                                <img class="dropdown-avatar" src="<?= htmlspecialchars($_SESSION['picture_url'] ?? 'https://i.pravatar.cc/50') ?>" alt="Profile">
-                                <div class="user-info">
-                                    <span class="user-name"><?= htmlspecialchars($_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?? 'Utilisateur') ?></span>
-                                    <span class="user-email"><?= htmlspecialchars($_SESSION['email'] ?? '') ?></span>
-                                </div>
-                            </div>
-                            <div class="dropdown-divider"></div>
-                            <a href="profile.php" class="dropdown-item">
-                                <i class="fas fa-user"></i>
-                                <span>Mon Profil</span>
-                            </a>
-                            <a href="watchlist.php" class="dropdown-item">
-                                <i class="fas fa-bookmark"></i>
-                                <span>Ma Liste</span>
-                            </a>
-                            <a href="settings.php" class="dropdown-item">
-                                <i class="fas fa-cog"></i>
-                                <span>Paramètres</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="logout.php" class="dropdown-item logout">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <span>Déconnexion</span>
-                            </a>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <a href="login.php" class="login-button">Connexion</a>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-    
+    <!-- nav-bar -->
+    <?php navbar(); ?>
     <!-- side-bar -->
-    <div class="sidebar">
-        <i class="left-menu-icon fas fa-search"></i>
-        <a href="index.php">
-            <i class="left-menu-icon fas fa-home"></i></a>
-        <i class="left-menu-icon fas fa-users"></i>
-        <i class="left-menu-icon fas fa-bookmark"></i>
-    </div>
+    <?php sidebar(); ?>
     
     <!-- Movie Details Container -->
     <div class="container">

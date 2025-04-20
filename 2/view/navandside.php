@@ -106,7 +106,6 @@ function sidebar()
 
 {?>
     <div class="sidebar">
-        <i class="left-menu-icon fas fa-search"></i>
         <a href="login.php">
             <i class="left-menu-icon fas fa-home"></i></a>
         <i class="left-menu-icon fas fa-users"></i>

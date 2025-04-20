@@ -1,3 +1,19 @@
+<?php 
+include("../Config/database.php");
+
+$stats = $cnx->query("
+SELECT 
+    (SELECT COUNT(*) FROM Media WHERE type='f') as nb_movies,
+    (SELECT COUNT(*) FROM Media WHERE type='s') as nb_series,
+    (SELECT COUNT(*) FROM users) as nb_users
+")->fetch(PDO::FETCH_ASSOC);
+
+$nb_movies = $stats['nb_movies'];
+$nb_series = $stats['nb_series'];
+$nb_users = $stats['nb_users'];
+    
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,20 +33,20 @@
         </div>
         <div class="sidebar-menu">
             <div class="sidebar-item">
-                <a href="admin.php" class="sidebar-link">
+                <a href="admin.php" class="sidebar-link active">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="Media.php" class="sidebar-link">
+                <a href="ad_films.php" class="sidebar-link">
                     <i class="fas fa-video"></i>
                     <span>Media</span>
                 </a>
             </div>
            
             <div class="sidebar-item">
-                <a href="admin_users.php" class="sidebar-link active">
+                <a href="admin_users.php" class="sidebar-link ">
                     <i class="fas fa-users"></i>
                     <span>Users</span>
                 </a>
@@ -74,28 +90,29 @@
             <div class="col-md-3">
                 <div class="card stat-card">
                     <i class="fas fa-film"></i>
-                    <h3>1,254</h3>
+                    <h3><?php echo htmlspecialchars($nb_movies) ?></h3>
                     <p>Films</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card stat-card">
                     <i class="fas fa-tv"></i>
-                    <h3>568</h3>
+                    <h3><?php echo htmlspecialchars($nb_series)?></h3>
+
                     <p>Séries</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card stat-card">
                     <i class="fas fa-users"></i>
-                    <h3>8,742</h3>
+                    <h3><?php echo htmlspecialchars($nb_users)?></h3>
                     <p>Utilisateurs</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card stat-card">
                     <i class="fas fa-comment"></i>
-                    <h3>12,569</h3>
+                    <h3>7</h3>
                     <p>Commentaires</p>
                 </div>
             </div>
@@ -225,34 +242,7 @@
                 </div>
 
                 <!-- Quick Add Form -->
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">Ajouter un Film</h5>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="mb-3">
-                                <label class="form-label">Titre</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Genre</label>
-                                <select class="form-select">
-                                    <option>Action</option>
-                                    <option>Comédie</option>
-                                    <option>Drame</option>
-                                    <option>Horreur</option>
-                                    <option>Science-fiction</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Image</label>
-                                <input type="file" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Ajouter</button>
-                        </form>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
