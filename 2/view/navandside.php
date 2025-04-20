@@ -43,10 +43,8 @@ function navbar()
                             <div class="user-info">
                                 <span class="user-name"><?= htmlspecialchars($_SESSION['user']['name']) ?></span>
                                 <?php
-                                    if($_SESSION['test']===1){
-                                        $mail=htmlspecialchars($_SESSION['user']['AdminEmail']);
-                                    }else{
-                                        $mail=htmlspecialchars($_SESSION['user']['email']);}
+                                    $mail=$_SESSION['user']['email'];
+                                    
                                 ?>
                                 <span class="user-email"><?php $mail ?></php></span>
 
