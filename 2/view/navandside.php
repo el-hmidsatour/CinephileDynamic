@@ -44,7 +44,6 @@ function navbar()
                                 <span class="user-name"><?= htmlspecialchars($_SESSION['user']['name']) ?></span>
                                 <?php
                                     $mail=$_SESSION['user']['email'];
-                                    
                                 ?>
                                 <span class="user-email"><?php $mail ?></php></span>
 

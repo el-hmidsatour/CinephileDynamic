@@ -30,9 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt = $cnx->prepare(query: "SELECT * FROM Users WHERE Email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
-    
-    if ($user) {
-        if ($user['Password'] === MD5($password)) {
+    if($user){
+        if ($user['Password'] === md5($password)) {
             $_SESSION['user'] = [
                 'id' => $user['UserId'],
                 'name' => $user['FirstName'] . ' ' . $user['LastName'],
@@ -41,10 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 'picture' => $user['PictureUrl'] ?? 'https://i.pravatar.cc/50'
             ];
             $_SESSION['test']=0;
-            header("Location: home.php");
+            header("Location: Movie.php");
             exit();
-        }
-    }
+        
+        } }
     
     // Message d'erreur générique (pour sécurité)
     echo "<p style='color:red;text-align:center'>Identifiants incorrects</p>";

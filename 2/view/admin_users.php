@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             case 'add':
                 // Ajout d'un nouvel utilisateur
                 try {
-                    $hashedPassword = password_hash($_POST['Password'], PASSWORD_DEFAULT);
+                    $hashedPassword = md5($_POST['Password']);
                     $stmt = $cnx->prepare("INSERT INTO users (FirstName, LastName, Number, Email, Password, PictureUrl) 
                                           VALUES (?, ?, ?, ?, ?, ?)");
                     $stmt->execute([
