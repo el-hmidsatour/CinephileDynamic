@@ -42,9 +42,13 @@ function navbar()
                             <img class="dropdown-avatar" src="https://i.pravatar.cc/50?img=68" alt="Profile">
                             <div class="user-info">
                                 <span class="user-name"><?= htmlspecialchars($_SESSION['user']['name']) ?></span>
-                                <span class="user-email"><?= htmlspecialchars($_SESSION['user']['email']) ?></php></span>
+                                <?php
+                                    $mail=$_SESSION['user']['email'];
+                                    
+                                ?>
+                                <span class="user-email"><?php $mail ?></php></span>
 
-
+                                
                             </div>
                         </div>
                         <div class="dropdown-divider"></div>
