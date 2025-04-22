@@ -7,17 +7,14 @@ if (!isset($_SESSION['user'])) {
     header("Location: ../login.php");
     exit();
 }
-
 require_once("../Config/database.php");
 if (!isset($_POST['id'])) {
     $_SESSION['watchlist_message'] = "Invalid request";
     header("Location: ../index.php");
     exit();
 }
-
 $userId = $_SESSION['user']['id'];
 $mediaId = (int)$_POST['id'];
-
 try {
     $checkStmt = $cnx->prepare("
         SELECT * FROM watchlist 

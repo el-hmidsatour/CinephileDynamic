@@ -363,23 +363,7 @@ try {
             });
         });
         
-        // Form validation
-        document.querySelector('form').addEventListener('submit', (e) => {
-            const rating = document.getElementById('selected-rating').value;
-            const comment = document.querySelector('textarea[name="comment"]').value;
-            
-            if (rating < 1 || rating > 5) {
-                e.preventDefault();
-                alert('Please select a rating between 1-5 stars');
-                return false;
-            }
-            
-            if (!comment.trim()) {
-                e.preventDefault();
-                alert('Please write a review');
-                return false;
-            }
-        });
+       
         
 
         
