@@ -121,7 +121,6 @@ $userId = $_SESSION['user']['id'];
             <div class="watched-item">
                 <div class="item-poster">
                     <img src="<?= htmlspecialchars($item['MediaUrl']) ?>" alt="<?= htmlspecialchars($item['Title']) ?>">
-                    <div class="watched-badge">In Watchlist</div>
                 </div>
                 <div class="item-details">
                     <h3 class="item-title"><?= htmlspecialchars($item['Title']) ?> <span class="item-year">(<?= htmlspecialchars($item['Year']) ?>)</span></h3>
@@ -131,9 +130,12 @@ $userId = $_SESSION['user']['id'];
                     </div>
                     <div class="item-actions">
                         <a href="contenu.php?id=<?= $item['Id'] ?>" class="action-btn"><i class="fas fa-eye"></i> View</a>
-                        <form method="POST" action="remove_from_watchlist.php" style="display: inline;">
+                        <!-- Dans la boucle d'affichage des éléments de la watchlist -->
+                        <form method="POST" action="../controller/remove_watchlist.php">
                             <input type="hidden" name="media_id" value="<?= $item['Id'] ?>">
-                            <button type="submit" class="action-btn"><i class="fas fa-trash"></i> Remove</button>
+                            <button type="submit" class="remove-btn">
+                                <i class="fas fa-trash-alt"></i> Remove
+                            </button>
                         </form>
                     </div>
                 </div>
