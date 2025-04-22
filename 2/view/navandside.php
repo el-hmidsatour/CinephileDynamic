@@ -1,7 +1,8 @@
 <?php 
+session_start();
 function navbar()
 {
-    session_start();
+    
     ?>
     <div class="navbar">
         <div class="navbar-container">
@@ -55,7 +56,7 @@ function navbar()
                             <i class="fas fa-user"></i>
                             <span>Mon Profil</span>
                         </a>
-                        <a href="#" class="dropdown-item">
+                        <a href="watchlist.php" class="dropdown-item">
                             <i class="fas fa-bookmark"></i>
                             <span>Ma Liste</span>
                         </a>
@@ -109,13 +110,15 @@ function sidebar()
 
 {?>
     <div class="sidebar">
+        <a href="search.php">
+            <i class="left-menu-icon fas fa-search"></i>
+        </a>
         <a href="login.php">
             <i class="left-menu-icon fas fa-home"></i></a>
         <i class="left-menu-icon fas fa-users"></i>
+        <a href="watchlist.php"></a>
         <i class="left-menu-icon fas fa-bookmark"></i>
-        <a href="search.php">
-        <i class="left-menu-icon fas fa-search"></i>
-        </a>
+        
 
     </div>
 <?php

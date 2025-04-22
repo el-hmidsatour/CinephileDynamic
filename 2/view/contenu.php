@@ -3,8 +3,58 @@
 require_once("../Config/database.php");
 include("navandside.php");
 
-// Récupérer l'ID du film depuis l'URL
-$movieId = $_POST['id'] ?? 1;
+// Récupérer l'ID du film depuis l'URL ou POST
+$movieId = $_POST['id'] ?? $_GET['id'] ?? 1;
+
+
+// Handle review submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
+    if (isset($_SESSION['user'])) {
+        $rating = $_POST['rating'] ?? 0;
+        $comment = $_POST['comment'] ?? '';
+        $userId = $_SESSION['user']['id'];
+        
+        if (empty($comment) || $rating < 1 || $rating > 5) {
+            $reviewError = "Please provide both a rating (1-5 stars) and a comment";
+        } else {
+            try {
+                // Check if review already exists
+                $checkStmt = $cnx->prepare("
+                    SELECT * FROM reviews 
+                    WHERE MediaId = ? AND UserId = ?
+                ");
+                $checkStmt->execute([$movieId, $userId]);
+                $existingReview = $checkStmt->fetch(PDO::FETCH_ASSOC);
+                
+                if ($existingReview) {
+                    // Update existing review
+                    $stmt = $cnx->prepare("
+                        UPDATE reviews 
+                        SET Rating = ?, Comment = ?, Date = NOW() 
+                        WHERE MediaId = ? AND UserId = ?
+                    ");
+                    $stmt->execute([$rating*2, $comment, $movieId, $userId]);
+                    $reviewSuccess = "Your review has been updated!";
+                } else {
+                    // Insert new review
+                    $stmt = $cnx->prepare("
+                        INSERT INTO reviews (UserId, MediaId, Rating, Comment, Date)
+                        VALUES (?, ?, ?, ?, NOW())
+                    ");
+                    $stmt->execute([$userId, $movieId, $rating*2, $comment]);
+                    $reviewSuccess = "Review posted successfully!";
+                }
+                header("Location: contenu.php?id=$movieId");
+                exit();
+                
+            } catch (PDOException $e) {
+                $reviewError = "Error submitting review: " . $e->getMessage();
+            }
+        }
+    } else {
+        $reviewError = "You must be logged in to post a review";
+    }
+}
 
 // Requête pour récupérer les détails du film
 try {
@@ -22,7 +72,7 @@ try {
     $actorsStmt->execute([$movieId]);
     $actors = $actorsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Get genres (using NameGenre and tagged table)
+    // Get genres
     $genresStmt = $cnx->prepare("
         SELECT g.NameGenre FROM genres g
         JOIN tagged t ON g.GenreId = t.GenreId
@@ -31,7 +81,7 @@ try {
     $genresStmt->execute([$movieId]);
     $genres = $genresStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Get reviews with user info
+    // Get reviews
     $reviewsStmt = $cnx->prepare("
         SELECT r.*, u.FirstName, u.LastName, u.PictureUrl 
         FROM reviews r
@@ -42,47 +92,13 @@ try {
     $reviewsStmt->execute([$movieId]);
     $reviews = $reviewsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Calculate average rating (1-5 scale)
+    // Calculate average rating
     $avgRatingStmt = $cnx->prepare("SELECT AVG(Rating) as avg_rating FROM reviews WHERE MediaId = ?");
     $avgRatingStmt->execute([$movieId]);
     $avgRating = $avgRatingStmt->fetch(PDO::FETCH_ASSOC)['avg_rating'];
     
 } catch (PDOException $e) {
     die("Erreur de base de données: " . $e->getMessage());
-}
-
-// Handle review submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
-    if (!isset($_SESSION['user_id'])) {
-        die("Vous devez être connecté pour poster un commentaire");
-    }
-    
-    $rating = $_POST['rating'] ?? 0;
-    $comment = $_POST['comment'] ?? '';
-    
-    if (empty($comment) || $rating < 1 || $rating > 5) {
-        $reviewError = "Veuillez donner une note (1-5 étoiles) et écrire un commentaire";
-    } else {
-        try {
-            // Store rating directly (1-5 scale)
-            $stmt = $cnx->prepare("
-                INSERT INTO reviews (UserId, MediaId, Rating, Comment, Date)
-                VALUES (?, ?, ?, ?, NOW())
-            ");
-            $stmt->execute([
-                $_SESSION['user_id'],
-                $movieId,
-                $rating, // Store as 1.0-5.0
-                $comment
-            ]);
-            
-            // Refresh page to show new review
-            header("Location: contenu.php?id=$movieId");
-            exit();
-        } catch (PDOException $e) {
-            $reviewError = "Erreur lors de l'envoi du commentaire: " . $e->getMessage();
-        }
-    }
 }
 ?>
 <!DOCTYPE html>
@@ -143,8 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     <?php
     navbar();
     sidebar();
-
-        ?>
+    ?>
     <!-- Movie Details Container -->
     <div class="container">
         <div class="content-container">
@@ -167,11 +182,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
                     </div>
                     <div class="average-rating-stars">
                         <?php
-                        $filledStars = round($avgRating ?? 0);
-                        for ($i = 1; $i <= 5; $i++): ?>
-                            <i class="fas fa-star <?= $i <= $filledStars ? 'active' : '' ?>"></i>
+                        $avgRatingStars = ($avgRating ?? 0) / 2; 
+                        $filledStars = floor($avgRatingStars); 
+                        $hasHalfStar = ($avgRatingStars - $filledStars) >= 0.5; 
+                        
+                        // Full stars
+                        for ($i = 1; $i <= $filledStars; $i++): ?>
+                            <i class="fas fa-star active"></i>
                         <?php endfor; ?>
-                        <span>(<?= count($reviews) ?> avis)</span>
+                        
+                        <!-- Half star if needed -->
+                        <?php if ($hasHalfStar): ?>
+                            <i class="fas fa-star-half-alt active"></i>
+                            <?php $filledStars++; ?>
+                        <?php endif; ?>
+                        
+                        <!-- Empty stars -->
+                        <?php for ($i = $filledStars + 1; $i <= 5; $i++): ?>
+                            <i class="far fa-star"></i>
+                        <?php endfor; ?>
+                        
+                        <span>(<?= count($reviews) ?> review(s))</span>
                     </div>
                 </div>
                 
@@ -223,17 +254,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
                         </div>
                         
                         <div class="bookmark-section">
-                            <form method="POST" action="">
-                                <input type="hidden" name="id" value="<?= $movieId ?>">
-                                <button type="submit" name="add_to_watchlist" class="bookmark-button">
-                                    <i class="fas fa-bookmark"></i> Add to List
-                                </button>
-                            </form>
-                            <?php if (isset($_SESSION['watchlist_message'])): ?>
-                                <div class="watchlist-message"><?= $_SESSION['watchlist_message'] ?></div>
-                                <?php unset($_SESSION['watchlist_message']); ?>
-                            <?php endif; ?>
-</div>
+                                <form method="POST" action="../controller/add_watchlist.php">
+                                    <input type="hidden" name="id" value="<?= $movieId ?>">
+                                    <button type="submit" name="add_to_watchlist" class="bookmark-button">
+                                        <i class="fas fa-bookmark"></i> Add to List
+                                    </button>
+                                </form>
+                                <?php if (isset($_SESSION['watchlist_message'])): ?>
+                                    <div class="watchlist-message"><?= $_SESSION['watchlist_message'] ?></div>
+                                    <?php unset($_SESSION['watchlist_message']); ?>
+                                <?php endif; ?>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -243,13 +274,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
                 <h2 class="section-title">User Reviews</h2>
                 
                 <!-- Review Form -->
-                <?php if (isset($_SESSION['user_id'])): ?>
-                <div class="comment-form">
-                    <div class="comment-avatar">
-                        <img src="<?= htmlspecialchars($_SESSION['picture_url'] ?? 'https://i.pravatar.cc/50') ?>" alt="User Avatar">
-                    </div>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <div class="comment-form">
+                        <div class="comment-avatar">
+                            <img src="<?= htmlspecialchars($_SESSION['user']['picture'] ?? 'https://i.pravatar.cc/50') ?>" alt="User Avatar">
+                        </div>
                     <div class="comment-input-container">
-                        <form method="POST" action="">
+                        <form method="post" action="contenu.php">
                             <input type="hidden" name="id" value="<?= $movieId ?>">
                             
                             <div class="rating-stars" id="rating-stars">
@@ -271,7 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
                 <?php else: ?>
                     <p><a href="login.php">Log in</a> to post a review</p>
                 <?php endif; ?>
-                
+                </br>
                 <!-- Reviews List -->
                 <div class="comments-list">
                     <?php foreach ($reviews as $review): ?>
@@ -289,19 +320,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
                                     </span>
                                     <span class="comment-rating">
                                         <?php 
-                                        $starRating = $review['Rating']; // Already 1-5 scale
-                                        for ($i = 1; $i <= 5; $i++): ?>
-                                            <i class="fas fa-star <?= $i <= $starRating ? 'active' : '' ?>"></i>
+                                        $starRating = $review['Rating'] / 2; 
+                                        for ($i = 1; $i <= $starRating; $i++): ?>
+                                            <i class="fas fa-star active"></i>
                                         <?php endfor; ?>
-                                        (<?= number_format($review['Rating'], 1) ?>/10)
+                                        (<?= $starRating ?>/5)
                                     </span>
                                 </div>
                                 <p class="comment-text">
                                     <?= htmlspecialchars($review['Comment']) ?>
                                 </p>
-                                <div class="comment-actions">
-                                    <button class="like-button"><i class="fas fa-thumbs-up"></i> Like</button>
-                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -352,16 +380,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
                 return false;
             }
         });
+        
 
-        document.querySelectorAll('.rating-stars i').forEach(star => {
-            star.addEventListener('mouseover', () => {
-                star.style.transform = 'scale(1.3)';
-                star.style.transition = 'all 0.2s';
-            });
-            star.addEventListener('mouseout', () => {
-                star.style.transform = 'scale(1)';
-            });
-        });
+        
     </script>
+    <script src="app.js"></script>
 </body>
 </html>

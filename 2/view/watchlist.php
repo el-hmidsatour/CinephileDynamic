@@ -1,5 +1,35 @@
 <?php 
-    include("navandside.php");
+include("navandside.php");
+
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$userId = $_SESSION['user']['id']; 
+
+try {
+    require_once("../Config/database.php");
+    
+    $stmt = $cnx->prepare("
+        SELECT m.* FROM media m
+        JOIN watchlist w ON m.Id = w.MediaId
+        WHERE w.UserId = ?
+        ORDER BY w.AddDate DESC
+    ");
+    $stmt->execute([$userId]);
+    $watchlistItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+} catch (PDOException $e) {
+    die("Erreur de base de données: " . $e->getMessage());
+}
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$userId = $_SESSION['user']['id'];
+
 ?>
 
 <!DOCTYPE html>
@@ -80,108 +110,37 @@
             </div>
             
             <!-- Watched Items Grid -->
-            <div class="watched-items-container">
-                <!-- Movie Item Example -->
-                <div class="watched-item">
-                    <div class="item-poster">
-                        <img src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg" alt="Inception">
-                        <div class="watched-badge">Watched</div>
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-title">Inception <span class="item-year">(2010)</span></h3>
-                        <div class="item-meta">
-                            <span class="item-runtime">2h 28min</span>
-                            <span class="item-genre">Sci-Fi, Action</span>
-                        </div>
-                        <div class="user-rating">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span class="rating-value">4.5</span>
-                            </div>
-                            <span class="watch-date">Watched on: 15/06/2023</span>
-                        </div>
-                        <div class="item-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i> Edit Rating</button>
-                            <button class="action-btn"><i class="fas fa-trash"></i> Remove</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- TV Show Item Example -->
-                <div class="watched-item">
-                    <div class="item-poster">
-                        <img src="https://m.media-amazon.com/images/M/MV5BNGYyZGM5MGMtYTY2Ni00M2Y1LWIzNjQtYWUzM2VlNGVhMDNhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" alt="Stranger Things">
-                        <div class="watched-badge">Watched</div>
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-title">Stranger Things <span class="item-year">(2016-)</span></h3>
-                        <div class="item-meta">
-                            <span class="item-runtime">4 Seasons</span>
-                            <span class="item-genre">Sci-Fi, Horror</span>
-                        </div>
-                        <div class="user-rating">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <span class="rating-value">4.0</span>
-                            </div>
-                            <span class="watch-date">Last watched: 22/05/2023</span>
-                        </div>
-                        <div class="item-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i> Edit Rating</button>
-                            <button class="action-btn"><i class="fas fa-trash"></i> Remove</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Another Movie Item -->
-                <div class="watched-item">
-                    <div class="item-poster">
-                        <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" alt="The Dark Knight">
-                        <div class="watched-badge">Watched</div>
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-title">The Dark Knight <span class="item-year">(2008)</span></h3>
-                        <div class="item-meta">
-                            <span class="item-runtime">2h 32min</span>
-                            <span class="item-genre">Action, Crime</span>
-                        </div>
-                        <div class="user-rating">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span class="rating-value">5.0</span>
-                            </div>
-                            <span class="watch-date">Watched on: 10/04/2023</span>
-                        </div>
-                        <div class="item-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i> Edit Rating</button>
-                            <button class="action-btn"><i class="fas fa-trash"></i> Remove</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Add more watched items here -->
+            <!-- Watched Items Grid -->
+        <div class="watched-items-container">
+        <?php if (empty($watchlistItems)): ?>
+            <div class="empty-watchlist">
+                <p>Votre watchlist est vide. Ajoutez des films en cliquant sur "Add to List".</p>
             </div>
-            
-            <!-- Pagination -->
-            <div class="pagination">
-                <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        <?php else: ?>
+         <?php foreach ($watchlistItems as $item): ?>
+            <div class="watched-item">
+                <div class="item-poster">
+                    <img src="<?= htmlspecialchars($item['MediaUrl']) ?>" alt="<?= htmlspecialchars($item['Title']) ?>">
+                    <div class="watched-badge">In Watchlist</div>
+                </div>
+                <div class="item-details">
+                    <h3 class="item-title"><?= htmlspecialchars($item['Title']) ?> <span class="item-year">(<?= htmlspecialchars($item['Year']) ?>)</span></h3>
+                    <div class="item-meta">
+                        <span class="item-type"><?= $item['Type'] == 'f' ? 'Movie' : 'TV Show' ?></span>
+                        <span class="item-country"><?= htmlspecialchars($item['Country']) ?></span>
+                    </div>
+                    <div class="item-actions">
+                        <a href="contenu.php?id=<?= $item['Id'] ?>" class="action-btn"><i class="fas fa-eye"></i> View</a>
+                        <form method="POST" action="remove_from_watchlist.php" style="display: inline;">
+                            <input type="hidden" name="media_id" value="<?= $item['Id'] ?>">
+                            <button type="submit" class="action-btn"><i class="fas fa-trash"></i> Remove</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
         </div>
     </div>
     

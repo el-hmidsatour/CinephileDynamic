@@ -2172,3 +2172,74 @@ h3.movie-title{
       gap: 10px;
   }
 }
+
+
+
+
+
+/*                                           WATCH LIST                                  */
+.empty-watchlist {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 1.2em;
+}
+
+.watched-item {
+  display: flex;
+  margin-bottom: 20px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.item-poster {
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.item-poster img {
+  width: 100%;
+  height: auto;
+}
+
+.item-details {
+  padding: 15px;
+  flex-grow: 1;
+}
+
+.watched-badge {
+  background: #4CAF50;
+  color: white;
+  padding: 3px 10px;
+  font-size: 0.8em;
+  display: inline-block;
+  margin: 5px;
+  border-radius: 3px;
+}
+
+.item-actions {
+  margin-top: 10px;
+}
+
+.action-btn {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background: #444;
+}
+.watchlist-message {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  font-size: 0.9em;
+}

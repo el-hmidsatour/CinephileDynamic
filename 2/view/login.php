@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("navandside.php");
 include("../Config/database.php");
 
@@ -63,34 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Login</title>
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-container">
-            <div class="logo-container"><h1 class="logo">CinePhile</h1></div>
-            <div class="menu-container">
-                <ul class="menu-list">
-                    <a href="index.php">Home</a>
-                    <a href="Movie.php">Movies</a>
-                    <a href="Series.php">Series</a>
-                    <a href="Popular.php">Popular</a>
-                    <a href="Arabic_Trends.php">Arabic Trends</a>
-                </ul>
-            </div>
-            <div class="navbar-profile-section">
-                <div class="toggle">
-                    <i class="fas fa-moon toggle-icon"></i>
-                    <i class="fas fa-sun toggle-icon"></i>
-                    <div class="toggle-ball"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="sidebar">
-        <i class="left-menu-icon fas fa-search"></i>
-        <i class="left-menu-icon fas fa-home"></i>
-        <i class="left-menu-icon fas fa-users"></i>
-        <i class="left-menu-icon fas fa-bookmark"></i>
-    </div>
+    <?php navbar(); ?>
+    <!-- side-bar -->
+    <?php sidebar(); ?>
 
     <div class="wrapper"> 
         <form method="POST" action="login.php">
