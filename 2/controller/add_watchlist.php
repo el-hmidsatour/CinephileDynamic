@@ -35,7 +35,7 @@ try {
         $insertStmt->execute([$userId, $mediaId]);
         $_SESSION['watchlist_message'] = "Item successfully added to your watchlist";
     }
-    header("Location: ../contenu.php?id=$mediaId");
+    header("Location: http://localhost/CinephileDynamic/2/view/contenu.php?id=$mediaId");
     exit();
     
 } catch (PDOException $e) {
