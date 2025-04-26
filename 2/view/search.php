@@ -1,21 +1,18 @@
 <?php
-// Include the navigation bar and sidebar
 include("navandside.php");
-// Include the database connection
 include("../Config/database.php");
 
 // --- Configuration ---
 // IMPORTANT: Double-check these absolute paths are correct for your system
 $pythonExecutable = 'C:/Users/hmids/AppData/Local/Programs/Python/Python313/python.exe';
-$searchScriptPath = 'C:/xampp/htdocs/CinePhileDynamic/2/controller/index_scripts/search_media.py';
+$searchScriptPath = '../controller/index_scripts/search_media.py';
 // ------------------
 
 // --- Initialize search variables ---
 $searchTerm = $_GET['searchterm'] ?? '';
 $type = $_GET['type'] ?? '%'; // '%' means all types (films and series)
 $genre = $_GET['genre'] ?? ''; // Empty means all genres
-// REMOVED: $searchDesc = isset($_GET['search_desc']);
-// REMOVED: $searchActors = isset($_GET['search_actors']);
+
 
 $movies = []; // Initialize array to hold final movie data
 $search_error = null; // Variable for any errors during the process
@@ -34,9 +31,7 @@ if (!empty($genre)) {
 if (!empty($type) && $type !== '%') { // Only add if type is specified and not 'all'
     $commandParts[] = '--type=' . escapeshellarg($type);
 }
-// REMOVED: Conditional logic for --search-desc and --search-actors
-// if ($searchDesc) { $commandParts[] = '--search-desc'; }
-// if ($searchActors) { $commandParts[] = '--search-actors'; }
+
 $commandParts[] = '--limit=100'; // Set a limit for results from Python
 
 // Combine parts into a single command string
@@ -157,7 +152,6 @@ if (!empty($mediaIds)) {
                         <label><input type="checkbox" ...> Actors</label>
                     </div>
                     -->
-                     <button type="submit">Search</button>
                 </div>
             </form>
 
