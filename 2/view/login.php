@@ -1,7 +1,10 @@
 <?php
 include("navandside.php");
 include("../Config/database.php");
-
+if(isset($_SESSION['user']))
+  {
+    header('Location:home.php');
+  }
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];

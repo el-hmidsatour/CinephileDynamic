@@ -277,7 +277,11 @@ try {
                 <?php if (isset($_SESSION['user'])): ?>
                     <div class="comment-form">
                         <div class="comment-avatar">
-                            <img src="<?= htmlspecialchars($_SESSION['user']['picture'] ?? 'https://i.pravatar.cc/50') ?>" alt="User Avatar">
+                        <img src="<?= isset($_SESSION['user']['picture']) ? 
+                            (strpos($_SESSION['user']['picture'], 'http') === 0 ? 
+                                $_SESSION['user']['picture'] : 
+                                '../uploads/profiles/'.htmlspecialchars($_SESSION['user']['picture'])) : 
+                            'https://i.pravatar.cc/50' ?>" alt="User Avatar">
                         </div>
                     <div class="comment-input-container">
                         <form method="post" action="contenu.php">
@@ -300,7 +304,7 @@ try {
                     </div>
                 </div>
                 <?php else: ?>
-                    <p><a href="login.php">Log in</a> to post a review</p>
+                    <p><a href="login.php"><button type="" name="submit_review" class="submit-comment">Log in</button></a> to post a review</p>
                 <?php endif; ?>
                 </br>
                 <!-- Reviews List -->
@@ -308,7 +312,11 @@ try {
                     <?php foreach ($reviews as $review): ?>
                         <div class="comment">
                             <div class="comment-avatar">
-                                <img src="<?= htmlspecialchars($review['PictureUrl'] ?? 'https://i.pravatar.cc/50') ?>" alt="User Avatar">
+                            <img src="<?= htmlspecialchars($review['PictureUrl']) ? 
+                                (strpos($review['PictureUrl'], 'http') === 0 ? 
+                                    $review['PictureUrl'] : 
+                                    '../uploads/profiles/'.htmlspecialchars($review['PictureUrl'])) : 
+                                'https://i.pravatar.cc/50' ?>" alt="User Avatar">
                             </div>
                             <div class="comment-content">
                                 <div class="comment-header">

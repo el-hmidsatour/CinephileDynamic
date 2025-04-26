@@ -3,6 +3,7 @@
 require_once("../Config/database.php");
 include("../controller/traitement.php");
 session_start();
+include("../controller/test_admin.php");
 // Récupération des utilisateurs
 $users = [];
 try {
@@ -148,16 +149,16 @@ if (isset($_GET['edit'])) {
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="admin_comment.php" class="sidebar-link ">
                     <i class="fas fa-comments"></i>
                     <span>Comments</span>
                 </a>
             </div>
             
             <div class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="fas fa-cog"></i>
-                    <span>Paramètres</span>
+                <a href="home.php" class="sidebar-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home Page</span>
                 </a>
             </div>
         </div>
@@ -177,10 +178,16 @@ if (isset($_GET['edit'])) {
             <h6 class="mb-0"><?= htmlspecialchars($_SESSION['user']['name']) ?></h6>
             <small><?= htmlspecialchars(ucfirst($_SESSION['user']['role'])) ?></small>
         </div>
-        <form action="logout.php" method="post" class="logout-form">
-            <button type="submit" class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i> Déconnexion
-            </button>
+            <button id="logoutBtn" onclick="confirmLogout()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                    </button>
+                    <script>
+                            function confirmLogout() {
+                                if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                                    window.location.href = '../controller/logout.php';
+                                }
+                            }
+                    </script>
         </form>
     </div>
     <?php endif; ?>

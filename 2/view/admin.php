@@ -1,6 +1,7 @@
 <?php 
 include("../Config/database.php");
-
+session_start();
+include("../controller/test_admin.php");
 $stats = $cnx->query("
 SELECT 
     (SELECT COUNT(*) FROM Media WHERE type='f') as nb_movies,
@@ -52,16 +53,16 @@ $nb_users = $stats['nb_users'];
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="admin_comment.php" class="sidebar-link ">
                     <i class="fas fa-comments"></i>
                     <span>Comments</span>
                 </a>
             </div>
             
             <div class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="fas fa-cog"></i>
-                    <span>Paramètres</span>
+                <a href="home.php" class="sidebar-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home Page</span>
                 </a>
             </div>
         </div>
@@ -79,9 +80,16 @@ $nb_users = $stats['nb_users'];
                     <small>Administrateur</small>
                 </div>
                 <!-- Bouton de déconnexion ajouté ici -->
-                <button id="logoutBtn" class="logout-btn">
+                <button id="logoutBtn" onclick="confirmLogout()" class="logout-btn">
                     <i class="fas fa-sign-out-alt"></i> Déconnexion
                 </button>
+                <script>
+                        function confirmLogout() {
+                            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                                window.location.href = '../controller/logout.php';
+                            }
+                        }
+                </script>
             </div>
         </div>
 

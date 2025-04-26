@@ -44,6 +44,6 @@ document.getElementById('logoutBtn').addEventListener('click', function() {
     
     setTimeout(() => {
         localStorage.removeItem('adminAuth');
-        window.location.href = 'login.html';
+        window.location.href = 'login.php';
     }, 800); // Délai pour l'animation
 });

@@ -29,7 +29,13 @@ function navbar()
                 <div class="user-profile">
                     <div class="profile-trigger">
                         <div class="avatar-wrapper">
-                            <img class="profile-avatar" src="https://i.pravatar.cc/50?img=68" alt="Profile">
+                        <img class="profile-avatar" 
+                                 src="<?= isset($_SESSION['user']['picture']) ? 
+                                     (strpos($_SESSION['user']['picture'], 'http') === 0 ? 
+                                         $_SESSION['user']['picture'] : 
+                                         '../uploads/profiles/'.htmlspecialchars($_SESSION['user']['picture'])) : 
+                                     'https://i.pravatar.cc/50' ?>" 
+                                 alt="Profile">
                             <div class="status-indicator"></div>
                         </div>
                         <div class="profile-badge">
@@ -37,22 +43,29 @@ function navbar()
                             <i class="fas fa-chevron-down dropdown-arrow"></i>
                         </div>
                     </div>
-
                     <div class="profile-dropdown-menu">
                         <div class="dropdown-header">
-                            <img class="dropdown-avatar" src="https://i.pravatar.cc/50?img=68" alt="Profile">
+                        <img class="dropdown-avatar" 
+                                 src="<?= isset($_SESSION['user']['picture']) ? 
+                                     (strpos($_SESSION['user']['picture'], 'http') === 0 ? 
+                                         $_SESSION['user']['picture'] : 
+                                         '../uploads/profiles/'.htmlspecialchars($_SESSION['user']['picture'])) : 
+                                     'https://i.pravatar.cc/50' ?>" 
+                                 alt="Profile">
                             <div class="user-info">
                                 <span class="user-name"><?= htmlspecialchars($_SESSION['user']['name']) ?></span>
                                 <?php
                                     $mail=$_SESSION['user']['email'];
                                 ?>
-                                <span class="user-email"><?php $mail ?></php></span>
-
-                                
+                                <span class="user-email"><?php $mail ?></php></span>  
                             </div>
                         </div>
+                        <?php 
+                        if($_SESSION['user']['role']!=='admin')
+                        {
+                            ?>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
+                        <a href="user_profile.php" class="dropdown-item">
                             <i class="fas fa-user"></i>
                             <span>Mon Profil</span>
                         </a>
@@ -60,23 +73,29 @@ function navbar()
                             <i class="fas fa-bookmark"></i>
                             <span>Ma Liste</span>
                         </a>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-cog"></i>
-                            <span>Paramètres</span>
-                        </a>
+                        <?php 
+                        }
+                        if($_SESSION['user']['role']==='admin')
+                        {
+                            ?>
+                            <a href="admin.php" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>dashboard</span>
+                            </a>
+                        <?php } ?>
                         <div class="dropdown-divider"></div>
                         <a href="#" onclick="confirmLogout()" class="dropdown-item logout">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Déconnexion</span>
                         </a>
 
-<script>
-function confirmLogout() {
-    if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-        window.location.href = '../controller/logout.php';
-    }
-}
-</script>
+                        <script>
+                        function confirmLogout() {
+                            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                                window.location.href = '../controller/logout.php';
+                            }
+                        }
+                        </script>
                     </div>
                 </div>
             </div>

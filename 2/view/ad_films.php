@@ -7,6 +7,7 @@ include("../controller/admin_movies/handle_delete.php");
 include("../controller/admin_movies/handle_edit.php");
 include("../controller/admin_movies/get_data.php");
 session_start();
+include("../controller/test_admin.php");
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +35,7 @@ session_start();
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="Media.php" class="sidebar-link active">
+                <a href="ad_films.php" class="sidebar-link active">
                     <i class="fas fa-video"></i>
                     <span>Media</span>
                 </a>
@@ -47,16 +48,16 @@ session_start();
                 </a>
             </div>
             <div class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="admin_comment.php" class="sidebar-link ">
                     <i class="fas fa-comments"></i>
                     <span>Comments</span>
                 </a>
             </div>
             
             <div class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="fas fa-cog"></i>
-                    <span>Paramètres</span>
+                <a href="home.php" class="sidebar-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home Page</span>
                 </a>
             </div>
         </div>
@@ -75,11 +76,17 @@ session_start();
             <h6 class="mb-0"><?= htmlspecialchars($_SESSION['user']['name']) ?></h6>
             <small><?= htmlspecialchars(ucfirst($_SESSION['user']['role'])) ?></small>
         </div>
-        <form action="logout.php" method="post" class="logout-form">
-            <button type="submit" class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i> Déconnexion
-            </button>
-        </form>
+        
+        <button id="logoutBtn" onclick="confirmLogout()" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </button>
+                <script>
+                        function confirmLogout() {
+                            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                                window.location.href = '../controller/logout.php';
+                            }
+                        }
+                </script>
     </div>
     <?php endif; ?>
         </div>

@@ -2,12 +2,34 @@
 include("../config/database.php");
 
 function AddUser($cnx, $data) {
-    $mdpHash = md5($data['password']);
-    $req = "INSERT INTO users (FirstName, LastName, Number, Email, Password, PictureUrl) 
-            VALUES ('".$data['first_name']."', '".$data['last_name']."', '".$data['phone']."', 
-                   '".$data['email']."', '".$mdpHash."', '".($data['PictureUrl'] ?? 'default.jpg')."')";
-    $res = $cnx->query($req);
-    return $res ? true : false;
+    // Hash the password
+    $hashed_password = md5($data['password']);
+    
+    // Prepare SQL statement
+    $stmt = $cnx->prepare("INSERT INTO users (FirstName, LastName, Number, Email, Password, PictureUrl) 
+                          VALUES (:first_name, :last_name, :phone, :email, :password, :picture)");
+    
+    // Execute with parameters
+    $stmt->execute([
+        ':first_name' => $data['first_name'],
+        ':last_name' => $data['last_name'],
+        ':phone' => $data['phone'],
+        ':email' => $data['email'],
+        ':password' => $hashed_password,
+        ':picture' => $data['picture']
+    ]);
+    
+    // Optionally log the user in immediately after registration
+    $_SESSION['user'] = [
+        'id' => $cnx->lastInsertId(),
+        'name' => $data['first_name'] . ' ' . $data['last_name'],
+        'email' => $data['email'],
+        'picture' => $data['picture']
+    ];
+    
+    // Redirect to home page
+    header("Location: home.php");
+    exit();
 }
 function getAllUsers($cnx) {
     $req = "SELECT * FROM users ORDER BY UserId DESC";

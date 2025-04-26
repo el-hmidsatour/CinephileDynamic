@@ -1,9 +1,24 @@
 <?php 
 include("navandside.php");
 include("../Config/database.php");
-
 try {
-    $stmt = $cnx->query("SELECT Id,Title, MediaUrl, Year FROM Media where type='f'");
+    // Get all movies with their details
+    $stmt = $cnx->query("
+        SELECT m.Id, m.Title, m.MediaUrl, m.Year, m.Description, m.ExpertRating, 
+               GROUP_CONCAT(DISTINCT a.FullName SEPARATOR ', ') AS Actors,
+               GROUP_CONCAT(DISTINCT g.NameGenre SEPARATOR ', ') AS Genres
+        FROM media m
+        LEFT JOIN acted act ON m.Id = act.MediaId
+        LEFT JOIN actors a ON act.ActorId = a.ActorId
+        LEFT JOIN tagged t ON m.Id = t.MediaId
+        LEFT JOIN genres g ON t.GenreId = g.GenreId
+        WHERE m.type='f'
+        GROUP BY m.Id
+        LIMIT 7
+    ");
+    $featuredMovies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Get all movies for the regular carousel
+    $stmt = $cnx->query("SELECT Id, Title, MediaUrl, Year FROM Media where type='f'");
     $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Erreur de base de données : " . $e->getMessage());
@@ -39,354 +54,75 @@ try {
         <!-- container pushing on the sidebar-->
         <div class="content-container">
             <!-- giant carousel card here (push the top since the side bar is floating)-->
-            <div class="featured-carousel-container">
-                <div class="featured-carousel-track">
-    
-                    <!-- Slide 1 - Inception -->
-                    <div class="featured-carousel-slide">
-                        <div class="featured-movie-compact">
-                            <!-- Affiche du film à gauche -->
-                            <div class="featured-movie-poster">
-                                <img src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg" alt="Affiche Inception">
+<div class="featured-carousel-container">
+    <div class="featured-carousel-track">
+        <?php foreach ($featuredMovies as $movie): ?>
+            <div class="featured-carousel-slide">
+                <div class="featured-movie-compact">
+                    <!-- Movie poster -->
+                    <div class="featured-movie-poster">
+                        <img src="<?= htmlspecialchars($movie['MediaUrl']) ?>" alt="<?= htmlspecialchars($movie['Title']) ?>">
+                    </div>
+                    
+                    <!-- Movie details -->
+                    <div class="featured-movie-details">
+                        <!-- Title -->
+                        <div class="movie-title-section">
+                            <h2 class="featured-movie-title"><?= htmlspecialchars($movie['Title']) ?></h2>
+                        </div>
+                        
+                        <!-- Ratings - only IMDb (removed Rotten Tomatoes) -->
+                        <div class="ratings-box">
+                            <div class="rating-item">
+                                <i class="fas fa-star"></i>
+                                <span><?= htmlspecialchars($movie['ExpertRating']) ?> <small>IMDb</small></span>
                             </div>
-                            
-                            <!-- Détails à droite -->
-                            <div class="featured-movie-details">
-                                <!-- Titre -->
-                                <div class="movie-title-section">
-                                    <h2 class="featured-movie-title"></h2>
-                                </div>
-                                
-                                <!-- Ratings -->
-                                <div class="ratings-box">
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>8.8 <small>IMDb</small></span>
-                                    </div>
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>87% <small>Rotten</small></span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <div class="description-box info-box">
-                                    <h3><i class="fas fa-align-left"></i> Synopsis</h3>
-                                    <p class="movie-description">
-                                        Dom Cobb est un voleur expérimenté qui subtilise les secrets les plus précieux enfouis dans le subconscient pendant que l'esprit de ses victimes est vulnérable lors du sommeil. 
-                                    </p>
-                                </div>
-                                
-                                <!-- Casting -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-users"></i> Casting</h3>
-                                    <p>Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page</p>
-                                </div>
-                                
-                                <!-- Date de sortie -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-calendar-alt"></i> Date de sortie</h3>
-                                    <p>16 Juillet 2010</p>
-                                </div>
-                                
-                                <!-- Durée -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-clock"></i> Durée</h3>
-                                    <p>2h 28min</p>
-                                </div>
-                                
-                                <!-- Genre -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-tags"></i> Genre</h3>
-                                    <p>Science-Fiction, Thriller</p>
-                                </div>
-                                
-                                <!-- Bouton Watch -->
-                                <div class="watch-button-container">
-                                    <button class="watch-button">Regarder</button>
-                                </div>
-                            </div>
+                        </div>
+                        
+                        <!-- Description -->
+                        <div class="description-box info-box">
+                            <h3><i class="fas fa-align-left"></i> Synopsis</h3>
+                            <p class="movie-description">
+                                <?= htmlspecialchars($movie['Description']) ?>
+                            </p>
+                        </div>
+                        
+                        <!-- Casting -->
+                        <div class="info-box">
+                            <h3><i class="fas fa-users"></i> Casting</h3>
+                            <p><?= htmlspecialchars($movie['Actors'] ?? 'Information not available') ?></p>
+                        </div>
+                        
+                        <!-- Release Date -->
+                        <div class="info-box">
+                            <h3><i class="far fa-calendar-alt"></i> Date de sortie</h3>
+                            <p><?= htmlspecialchars($movie['Year']) ?></p>
+                        </div>
+                        
+                        <!-- Genres -->
+                        <div class="info-box">
+                            <h3><i class="fas fa-tags"></i> Genre</h3>
+                            <p><?= htmlspecialchars($movie['Genres'] ?? 'Information not available') ?></p>
+                        </div>
+                        
+                        <!-- Watch Button -->
+                        <div class="watch-button-container">
+                            <form method="post" action="contenu.php">
+                                <input type="hidden" name="id" value="<?= htmlspecialchars($movie['Id']) ?>">
+                                <button type="submit" class="watch-button">View Details</button>
+                            </form>
                         </div>
                     </div>
-    
-                    <!-- Slide 2 - The Dark Knight -->
-                    <div class="featured-carousel-slide">
-                        <div class="featured-movie-compact">
-                            <!-- Affiche du film à gauche -->
-                            <div class="featured-movie-poster">
-                                <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" alt="Affiche The Dark Knight">
-                            </div>
-                            
-                            <!-- Détails à droite -->
-                            <div class="featured-movie-details">
-                                <!-- Titre -->
-                                <div class="movie-title-section">
-                                    <h2 class="featured-movie-title">The Dark Knight</h2>
-                                </div>
-                                
-                                <!-- Ratings -->
-                                <div class="ratings-box">
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>9.0 <small>IMDb</small></span>
-                                    </div>
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>94% <small>Rotten</small></span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <div class="description-box info-box">
-                                    <h3><i class="fas fa-align-left"></i> Synopsis</h3>
-                                    <p class="movie-description">
-                                        Batman relève le défi ultime en affrontant le Joker, un criminel psychotique qui sème la terreur et le chaos dans Gotham City.
-                                    </p>
-                                </div>
-                                
-                                <!-- Casting -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-users"></i> Casting</h3>
-                                    <p>Christian Bale, Heath Ledger, Aaron Eckhart</p>
-                                </div>
-                                
-                                <!-- Date de sortie -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-calendar-alt"></i> Date de sortie</h3>
-                                    <p>13 Août 2008</p>
-                                </div>
-                                
-                                <!-- Durée -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-clock"></i> Durée</h3>
-                                    <p>2h 32min</p>
-                                </div>
-                                
-                                <!-- Genre -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-tags"></i> Genre</h3>
-                                    <p>Action, Crime, Drame</p>
-                                </div>
-                                
-                                <!-- Bouton Watch -->
-                                <div class="watch-button-container">
-                                    <button class="watch-button">Regarder</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <!-- Slide 3 - Pulp Fiction -->
-                    <div class="featured-carousel-slide">
-                        <div class="featured-movie-compact">
-                            <!-- Affiche du film à gauche -->
-                            <div class="featured-movie-poster">
-                                <img src="https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" alt="Affiche Pulp Fiction">
-                            </div>
-                            
-                            <!-- Détails à droite -->
-                            <div class="featured-movie-details">
-                                <!-- Titre -->
-                                <div class="movie-title-section">
-                                    <h2 class="featured-movie-title">Pulp Fiction</h2>
-                                </div>
-                                
-                                <!-- Ratings -->
-                                <div class="ratings-box">
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>8.9 <small>IMDb</small></span>
-                                    </div>
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>92% <small>Rotten</small></span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <div class="description-box info-box">
-                                    <h3><i class="fas fa-align-left"></i> Synopsis</h3>
-                                    <p class="movie-description">
-                                        Les vies de deux tueurs à gages, d'un boxeur, d'un gangster et de sa femme, et d'un couple de petits braqueurs s'entrecroisent dans une série d'histoires violentes et absurdes.
-                                    </p>
-                                </div>
-                                
-                                <!-- Casting -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-users"></i> Casting</h3>
-                                    <p>John Travolta, Samuel L. Jackson, Uma Thurman</p>
-                                </div>
-                                
-                                <!-- Date de sortie -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-calendar-alt"></i> Date de sortie</h3>
-                                    <p>21 Octobre 1994</p>
-                                </div>
-                                
-                                <!-- Durée -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-clock"></i> Durée</h3>
-                                    <p>2h 34min</p>
-                                </div>
-                                
-                                <!-- Genre -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-tags"></i> Genre</h3>
-                                    <p>Crime, Drame</p>
-                                </div>
-                                
-                                <!-- Bouton Watch -->
-                                <div class="watch-button-container">
-                                    <button class="watch-button">Regarder</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 4 - Parasite -->
-                    <div class="featured-carousel-slide">
-                        <div class="featured-movie-compact">
-                            <!-- Affiche du film à gauche -->
-                            <div class="featured-movie-poster">
-                                <img src="https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg" alt="Affiche Parasite">
-                            </div>
-                            
-                            <!-- Détails à droite -->
-                            <div class="featured-movie-details">
-                                <!-- Titre -->
-                                <div class="movie-title-section">
-                                    <h2 class="featured-movie-title">Parasite</h2>
-                                </div>
-                                
-                                <!-- Ratings -->
-                                <div class="ratings-box">
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>8.5 <small>IMDb</small></span>
-                                    </div>
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>99% <small>Rotten</small></span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <div class="description-box info-box">
-                                    <h3><i class="fas fa-align-left"></i> Synopsis</h3>
-                                    <p class="movie-description">
-                                        Toute la famille de Ki-taek est au chômage et s'intéresse fortement au train de vie de la richissime famille Park. Un jour, leur fils réussit à se faire recommander pour donner des cours particuliers d'anglais chez les Park.
-                                    </p>
-                                </div>
-                                
-                                <!-- Casting -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-users"></i> Casting</h3>
-                                    <p>Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong</p>
-                                </div>
-                                
-                                <!-- Date de sortie -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-calendar-alt"></i> Date de sortie</h3>
-                                    <p>5 Juin 2019</p>
-                                </div>
-                                
-                                <!-- Durée -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-clock"></i> Durée</h3>
-                                    <p>2h 12min</p>
-                                </div>
-                                
-                                <!-- Genre -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-tags"></i> Genre</h3>
-                                    <p>Thriller, Drame</p>
-                                </div>
-                                
-                                <!-- Bouton Watch -->
-                                <div class="watch-button-container">
-                                    <button class="watch-button">Regarder</button>
-                                </div>
-                            </div>
-                        </div>
-                     </div>
-    
-                     <!-- Slide 5 - Spider-Man: Across the Spider-Verse -->
-                    <div class="featured-carousel-slide">
-                        <div class="featured-movie-compact">
-                            <!-- Affiche du film à gauche -->
-                            <div class="featured-movie-poster">
-                                <img src="https://m.media-amazon.com/images/M/MV5BMzI0NmVkMjEtYmY4MS00ZDMxLTlkZmEtMzU4MDQxYTMzMjU2XkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_.jpg" alt="Affiche Spider-Verse">
-                            </div>
-                            
-                            <!-- Détails à droite -->
-                            <div class="featured-movie-details">
-                                <!-- Titre -->
-                                <div class="movie-title-section">
-                                    <h2 class="featured-movie-title">Spider-Man: Across the Spider-Verse</h2>
-                                </div>
-                                
-                                <!-- Ratings -->
-                                <div class="ratings-box">
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>8.7 <small>IMDb</small></span>
-                                    </div>
-                                    <div class="rating-item">
-                                        <i class="fas fa-star"></i>
-                                        <span>95% <small>Rotten</small></span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <div class="description-box info-box">
-                                    <h3><i class="fas fa-align-left"></i> Synopsis</h3>
-                                    <p class="movie-description">
-                                        Miles Morales replonge dans le Multivers pour rejoindre Gwen Stacy et une nouvelle équipe de Spider-People qui doivent affronter un ennemi plus puissant que tout ce qu'ils ont connu.
-                                    </p>
-                                </div>
-                                
-                                <!-- Casting -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-users"></i> Casting</h3>
-                                    <p>Shameik Moore, Hailee Steinfeld, Oscar Isaac</p>
-                                </div>
-                                
-                                <!-- Date de sortie -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-calendar-alt"></i> Date de sortie</h3>
-                                    <p>2 Juin 2023</p>
-                                </div>
-                                
-                                <!-- Durée -->
-                                <div class="info-box">
-                                    <h3><i class="far fa-clock"></i> Durée</h3>
-                                    <p>2h 20min</p>
-                                </div>
-                                
-                                <!-- Genre -->
-                                <div class="info-box">
-                                    <h3><i class="fas fa-tags"></i> Genre</h3>
-                                    <p>Animation, Action, Aventure</p>
-                                </div>
-                                
-                                <!-- Bouton Watch -->
-                                <div class="watch-button-container">
-                                    <button class="watch-button">Regarder</button>
-                                </div>
-                            </div>
-                        </div>
-                     </div>
-    
-                    <!-- Add more slides here if needed -->
-    
-                </div> <!-- End Track -->
-    
-                <!-- Pagination Dots -->
-                <div class="carousel-dots">
-                    <!-- Dots will be generated by JavaScript -->
                 </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
     
-            </div><!-- End Track -->
+    <!-- Pagination Dots -->
+    <div class="carousel-dots">
+        <!-- Dots will be generated by JavaScript -->
+    </div>
+</div>
     
                 <!-- Pagination Dots -->
                 <div class="carousel-dots">

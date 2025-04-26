@@ -1,7 +1,7 @@
 <?php
 include("../config/database.php");
 
-$csvFile = fopen("movies.csv", "r");
+$csvFile = fopen("arab_content.csv", "r");
 if (!$csvFile) die("CSV not found");
 
 $row = 0;

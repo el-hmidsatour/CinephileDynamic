@@ -2,10 +2,15 @@
   include("navandside.php");
   include("../config/database.php");
   include("../controller/traitement.php");
+  if(isset($_SESSION['user']))
+  {
+    header('Location:home.php');
+  }
   if(!empty($_POST))
   {
     if(isset($_POST['first_name'],$_POST['last_name'],$_POST['phone'],$_POST['email'],$_POST['password']))
     {
+      $_POST['picture'] = 'default.png';
       AddUser($cnx,$_POST);
     }
   }
